@@ -1,21 +1,18 @@
 <?php
 session_start();
 require 'php/config.php';
+require 'php/connexiondb.php'; // Crée $linkpdo
+
 $msgErreur = "";
+
 // Rediriger vers l'accueil authentifié si l'utilisateur est déjà connecté
 if(!empty($_SESSION['signedin'])) {
-	header("Location: accueil.php");
+	//header -> accueil.php
 }
+
 // Si formulaire de connection rempli
-if(!empty($_POST['login']) && !empty($_POST['mdp']) && empty($_SESSION['signedin'])) {
-    //Essayer de se connecter avec les valeurs
-   if($_POST['login'] === $loginSite && $_POST['mdp'] === $mdpSite) {
-	   $_SESSION['signedin'] = true;
-	   header("Location: accueil.php");
-   } else {
-	   $msgErreur = "Login ou mdp erroné";
-   }
-}
+	// Si nom util + mdp trouvé ou mail + mdp trouvé -> connecter (SESSION signedin = true)
+	// Sinon msgErreur : mdp ou login erroné
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +35,11 @@ if(!empty($_POST['login']) && !empty($_POST['mdp']) && empty($_SESSION['signedin
 			<legend class="title">Connexion</legend>
 			<input type="text" name="login" placeholder="Nom d'utilisateur" required></input>
 			<input type="password" name ="mdp" placeholder="Mot de passe" required></input>
+			<?php
+			if ($msgErreur != "") {
+				echo "<p class=\"error\">".$msgErreur."</p>";
+			}
+			?>
 			<input type="submit" name="signin" value="Se connecter"></input>
 		</fieldset>
 	</form>
