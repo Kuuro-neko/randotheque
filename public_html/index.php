@@ -11,8 +11,21 @@ if(!empty($_SESSION['signedin'])) {
 }
 
 // Si formulaire de connection rempli
+if(!empty($_POST['login'] && !empty($_POST['mdp'] && isset($_POST['signin'])))) {
+	// Recherche dans la BD
+	$req = $linkpdo->prepare('SELECT Nom_d_utilisateur FROM utilisateur
+	WHERE (Nom_d_utilisateur LIKE :log_in OR Mail LIKE :log_in) AND Mot_de_passe LIKE :mdp');
+	$req->execute(array('log_in'=>$_POST['login'], 'mdp'=>$_POST['mdp']));
+
 	// Si nom util + mdp trouvé ou mail + mdp trouvé -> connecter (SESSION signedin = true)
+	if($data = $req->fetch()) {
+		$msgErreur = "Bienvenue ".$data['Nom_d_utilisateur']. ", ça marche !";
+		$_SESSION['signedin'] = true;
+	} else {
 	// Sinon msgErreur : mdp ou login erroné
+		$msgErreur = "Login ou mot de passe erroné";
+	}
+}
 ?>
 
 <!DOCTYPE html>
