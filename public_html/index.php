@@ -13,5 +13,12 @@
 </head>
 <body>
     <h1>Randothèque</h1>
-    <!-- TO-DO :) -->
+    <form action="index.php" class="connexion" method="post">
+   		<fieldset>
+			<legend class="title">Connexion</legend>
+			<input type="text" name="login" placeholder="Nom d'utilisateur" required></input>
+			<input type="password" name ="mdp" placeholder="Mot de passe" required></input>
+			<input type="submit" name="signin" value="Se connecter"></input>
+		</fieldset>
+	</form>
 </body>
