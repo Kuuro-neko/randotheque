@@ -1,3 +1,23 @@
+<?php
+session_start();
+require 'php/config.php';
+$msgErreur = "";
+// Rediriger vers l'accueil authentifié si l'utilisateur est déjà connecté
+if(!empty($_SESSION['signedin'])) {
+	header("Location: accueil.php");
+}
+// Si formulaire de connection rempli
+if(!empty($_POST['login']) && !empty($_POST['mdp']) && empty($_SESSION['signedin'])) {
+    //Essayer de se connecter avec les valeurs
+   if($_POST['login'] === $loginSite && $_POST['mdp'] === $mdpSite) {
+	   $_SESSION['signedin'] = true;
+	   header("Location: accueil.php");
+   } else {
+	   $msgErreur = "Login ou mdp erroné";
+   }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
