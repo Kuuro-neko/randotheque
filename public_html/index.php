@@ -44,6 +44,9 @@ if(isset($_POST['inscription'])) {
 	$reqMail = $linkpdo->prepare('SELECT Nom_d_utilisateur FROM utilisateur
 	WHERE Mail LIKE :log_in');
 	$reqMail->execute(array('log_in'=>$_POST['login_inscription']));
+
+
+	
 }
 ?>
 
@@ -84,4 +87,9 @@ if(isset($_POST['inscription'])) {
 			<input type="submit" name="insciption" value="S'inscrire"></input>
 		</fieldset>
 	</form>
+
+
+<?php
+	include 'php/footer.php';
+?>
 </body>

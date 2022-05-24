@@ -1,0 +1,19 @@
+footer {
+    position: fixed;
+    height: 60px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+	
+	display: flex;
+	text-align: center;
+	align-items: center;
+	justify-content: space-between;
+	border-top: 2px solid rgb(98, 98, 98);
+	z-index: 3;
+}
+
+.logo {
+	padding: 5px;
+}
