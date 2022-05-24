@@ -81,7 +81,7 @@ if(isset($_POST['inscription'])) {
 				echo "<p class=\"error\">".$msgErreurInscription."</p>";
 			}
 			?>
-			<input type="submit" name="insciption" value="Se connecter"></input>
+			<input type="submit" name="insciption" value="S'inscrire"></input>
 		</fieldset>
 	</form>
 </body>
