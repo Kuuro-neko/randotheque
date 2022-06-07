@@ -13,7 +13,10 @@
 }
 
 .image {
-	
+	position: fixed;
+	background-color: beige;
+	border-radius: 50px;
+	margin: 5px;
 }
 
 .titreEtBoutons {

@@ -1,6 +1,6 @@
 <div class="enTete">
 	<div class="image">
-		<img class="logo" src="public_html/images/logo.png" alt="Logo de l'application randothèque" height="100">
+		<img class="logo" src="images/logo.png" alt="Logo de l'application randothèque" height="100">
 	</div>
 	<div class="titreEtBoutons">
 		<div class="titre">
