@@ -8,7 +8,7 @@
 		</div>
 		<div class="boutons">
 			<div class="navigation">
-				<a href=""><button>Aucceuil</button></a>
+				<a href=""><button>Acceuil</button></a>
 				<a href=""><button>Recherche</button></a>
 				<a href=""><button>Importer</button></a>
 				<a href=""><button>Chat</button></a>

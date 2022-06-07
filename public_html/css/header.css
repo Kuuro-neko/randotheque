@@ -1,5 +1,15 @@
+
+
 .enTete {
-		display : flex;
+	height: 70px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: auto;
+	padding-bottom: 10px;
+	width: 100%;
+	border-bottom: 2px solid rgb(98, 98, 98);
+	z-index: 3;
 }
 
 .image {
@@ -30,7 +40,7 @@ h1 {
 }
 
 button {
-		margin-left : 10px;
+		margin : 10px;
 		background : #B6AC96;
 }
 
@@ -39,5 +49,6 @@ input {
 }
 
 .btDeco {
-		background : #B6AC96;
+	margin : 10px;
+	background : #B6AC96;
 }
