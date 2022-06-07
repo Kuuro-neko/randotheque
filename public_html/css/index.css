@@ -1,0 +1,36 @@
+
+/*
+Couleurs :
+rgb(98, 98, 98);
+#a3c67b;
+#B6AC96;
+*/
+.connexion {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    width: 400px;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+.connexion input {
+    width: 75%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: .5em;
+}
+

@@ -45,8 +45,19 @@ if(isset($_POST['inscription'])) {
 	WHERE Mail LIKE :log_in');
 	$reqMail->execute(array('log_in'=>$_POST['login_inscription']));
 
+	if($data = $reqUsername->fetch()) {
+		$msgErreurInscription += "Erreur, le nom d'utilisateur est déjà utilisé.";
+	} else
+	if($data = $reqMail->fetch()) {
+		$msgErreurInscription += "Erreur, mail déjà utilisé. ";
+	} else {
+		// Ajout de l'utilisateur à la BD
+		$reqInscription = $linkpdo->prepare('INSERT INTO utilisateur (Nom_d_utilisateur, Mail, Mot_de_passe)
+		VALUES (:log_in, :mail, :mdp_inscription)');
+		$reqInscription->execute(array('log_in'=>$_POST['login_inscription'], 'mail'=>$_POST['mail_inscription'], 'mdp_inscription'=>$_POST['mdp_inscription']));
 
-	
+		$msgErreurInscription = "Inscription réussie, vous pouvez vous connecter.";
+	}
 }
 ?>
 
@@ -59,7 +70,6 @@ if(isset($_POST['inscription'])) {
 ?>
 
 <body>
-    <h1>Randothèque</h1>
     <form id="connection" action="index.php" class="connexion" method="post">
    		<fieldset>
 			<legend class="title">Connexion</legend>
@@ -78,14 +88,14 @@ if(isset($_POST['inscription'])) {
    		<fieldset>
 			<legend class="title">Inscription</legend>
 			<input type="text" name="login_inscription" placeholder="Nom d'utilisateur" required></input>
-			<input type="text" name="mail_inscription" placeholder="Adresse mail" required></input>
+			<input type="email" name="mail_inscription" placeholder="Adresse mail" required></input>
 			<input type="password" name ="mdp_inscription" placeholder="Mot de passe" required></input>
 			<?php
 			if ($msgErreurInscription != "") {
 				echo "<p class=\"error\">".$msgErreurInscription."</p>";
 			}
 			?>
-			<input type="submit" name="insciption" value="S'inscrire"></input>
+			<input type="submit" name="inscription" value="S'inscrire"></input>
 		</fieldset>
 	</form>
 
