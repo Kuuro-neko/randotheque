@@ -7,5 +7,7 @@
 	<title><?php echo $thisPageTitle; ?></title>
 	<link rel="stylesheet" href="./css/<?php echo $thisPage; ?>.css">
 	<link rel="stylesheet" href="./css/footer.css">
+	<link rel="stylesheet" href="./css/header.css">
+	<link rel="stylesheet" href="./css/common.css">
 	<link rel="icon" href="./images/logo.png" />
 </head>

@@ -55,6 +55,7 @@ if(isset($_POST['inscription'])) {
 
 <?php
 	include 'php/balise_head.php';
+	include 'php/head.php';
 ?>
 
 <body>

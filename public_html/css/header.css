@@ -1,0 +1,57 @@
+
+
+.enTete {
+	height: 70px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: auto;
+	padding-bottom: 10px;
+	width: 100%;
+	border-bottom: 2px solid rgb(98, 98, 98);
+	z-index: 3;
+}
+
+.image {
+	position: fixed;
+	background-color: beige;
+	border-radius: 50px;
+	margin: 5px;
+}
+
+.titreEtBoutons {
+		background-color : #a3c67b;
+		
+		display : flex;
+		flex-direction : column;
+		
+		padding-right : 10px;
+}
+
+.titre {
+	display : flex;
+	justify-content : center;
+}
+
+h1 {
+		color : #374c2c;
+}
+
+.boutons {
+	display : flex;
+	justify-content : flex-end;
+}
+
+button {
+		margin : 10px;
+		background : #B6AC96;
+}
+
+input {
+	margin-left : 50px;
+}
+
+.btDeco {
+	margin : 10px;
+	background : #B6AC96;
+}
