@@ -8,11 +8,11 @@
 		</div>
 		<div class="boutons">
 			<div class="navigation">
-				<a href=""><button>Acceuil</button></a>
-				<a href=""><button>Recherche</button></a>
-				<a href=""><button>Importer</button></a>
-				<a href=""><button>Chat</button></a>
-				<a href=""><button>A propos</button></a>
+				<input class="btMenu" type="button" onclick="location.href='acceuil.php';" value="Acceuil"/>
+				<input class="btMenu" type="button" onclick="location.href='';" value="Recherche"/>
+				<input class="btMenu" type="button" onclick="location.href='import.php';" value="Importer"/>
+				<input class="btMenu" type="button" onclick="location.href='';" value="Chat"/>
+				<input class="btMenu" type="button" onclick="location.href='';" value="A propos"/>
 			</div>
 			<div class="deconnexion">
 				<form action="" method="get">

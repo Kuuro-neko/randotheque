@@ -42,7 +42,7 @@ h1 {
 	justify-content : flex-end;
 }
 
-button, .btDeco {
+.btMenu, .btDeco {
 		background-color : #B6AC96;
 		border-radius : 5px;
 		border : 1px solid #B6AC96;
@@ -54,7 +54,7 @@ button, .btDeco {
 		font-size : 1.2em;
 		font-weight : bold;
 }
-button:hover, .btDeco:hover {
+.btMenu:hover, .btDeco:hover {
 		background-color : #374c2c;
 		color : #B6AC96;
 }

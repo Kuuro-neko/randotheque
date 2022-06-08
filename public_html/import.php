@@ -1,7 +1,7 @@
 <?php
 session_start();
-$thisPageTitle = "Randothèque - Accueil"; // Titre de l'onglet
-$thisPage = "accueil"; // Pour lier à la bonne feuille CSS
+$thisPageTitle = "Randothèque - Importer un fichier GPX"; // Titre de l'onglet
+$thisPage = "import"; // Pour lier à la bonne feuille CSS
 
 include 'php/deconnexion_utilisateur.php';
 ?>
@@ -14,7 +14,7 @@ include 'php/deconnexion_utilisateur.php';
 ?>
 
 <body>
-	<p id="welcome">Bienvenue sur Randothèque, <?php echo $_SESSION['nom_util'];?></p>
+	<p id="welcome">Importer une trace</p>
 </body>
 
 <?php
