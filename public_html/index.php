@@ -11,7 +11,7 @@ $msgErreurInscription = "";
 
 // Rediriger vers l'accueil authentifié si l'utilisateur est déjà connecté
 if(!empty($_SESSION['signedin'])) {
-	//header -> accueil.php
+	header("Location: accueil.php");
 }
 
 // Si formulaire de connection rempli (les champs sont forcément remplis grâce au required du <form>)
@@ -23,14 +23,14 @@ if(isset($_POST['connection'])) {
 
 	// Si nom util + mdp trouvé ou mail + mdp trouvé -> connecter (SESSION signedin = true)
 	if($data = $reqConnect->fetch()) {
-		$msgErreurConnect = "Bienvenue ".$data['Nom_d_utilisateur']. ", ça marche !";
 		$_SESSION['signedin'] = true;
+		$_SESSION['nom_util'] = $data['Nom_d_utilisateur'];
+		header("Location: accueil.php");
 	} else {
 	// Sinon msgErreurConnection : mdp ou login erroné
 		$msgErreurConnect = "Login ou mot de passe erroné";
 	}
 }
-
 
 // Si formulaire d'inscription rempli (les champs sont forcément remplis grâce au required du <form>)
 if(isset($_POST['inscription'])) {
@@ -45,18 +45,17 @@ if(isset($_POST['inscription'])) {
 	WHERE Mail LIKE :log_in');
 	$reqMail->execute(array('log_in'=>$_POST['login_inscription']));
 
+	// Vérifier si le nom d'utilisateur ou le mail sont déjà utilisés
 	if($data = $reqUsername->fetch()) {
-		$msgErreurInscription += "Erreur, le nom d'utilisateur est déjà utilisé.";
-	} else
-	if($data = $reqMail->fetch()) {
-		$msgErreurInscription += "Erreur, mail déjà utilisé. ";
+		$msgErreurInscription = "Ce nom d'utilisateur est déjà utilisé";
+	} else if($data = $reqMail->fetch()) {
+		$msgErreurInscription = "Ce mail est déjà utilisé";
 	} else {
-		// Ajout de l'utilisateur à la BD
+		// Ajouter l'utilisateur à la BD
 		$reqInscription = $linkpdo->prepare('INSERT INTO utilisateur (Nom_d_utilisateur, Mail, Mot_de_passe)
 		VALUES (:log_in, :mail, :mdp_inscription)');
 		$reqInscription->execute(array('log_in'=>$_POST['login_inscription'], 'mail'=>$_POST['mail_inscription'], 'mdp_inscription'=>$_POST['mdp_inscription']));
-
-		$msgErreurInscription = "Inscription réussie, vous pouvez vous connecter.";
+		$msgErreurInscription = "Inscription réussie, vous pouvez vous connecter";
 	}
 }
 ?>

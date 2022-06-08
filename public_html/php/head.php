@@ -1,6 +1,6 @@
 <div class="enTete">
 	<div class="image">
-		<img class="logo" src="images/logo.png" alt="Logo de l'application randothèque" height="100">
+		<img class="logo" src="images/logo.png" alt="Logo de l'application randothèque" height="85">
 	</div>
 	<div class="titreEtBoutons">
 		<div class="titre">
@@ -15,9 +15,8 @@
 				<a href=""><button>A propos</button></a>
 			</div>
 			<div class="deconnexion">
-				<form action="" method="post">
-					<input type="hidden" name="deconnecte" value="true">
-					<input type="submit" value="Déconnexion" class="btDeco">
+				<form action="" method="get">
+					<input type="submit" name="disconnect" value="Déconnexion" class="btDeco">
 				</form>
 			</div>
 		</div>
