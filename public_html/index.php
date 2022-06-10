@@ -11,7 +11,7 @@ $msgErreurInscription = "";
 
 // Rediriger vers l'accueil authentifié si l'utilisateur est déjà connecté
 if(!empty($_SESSION['signedin'])) {
-	header("Location: accueil.php");
+	header("Location: acceuil.php");
 }
 
 // Si formulaire de connection rempli (les champs sont forcément remplis grâce au required du <form>)
