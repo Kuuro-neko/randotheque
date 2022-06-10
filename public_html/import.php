@@ -38,7 +38,12 @@ include 'php/deconnexion_utilisateur.php';
 		$fileActualExt = strtolower(end($fileExt));
 
 		$allowed = array('gpx');
-		
+
+
+	/*
+		move_uploaded_file($fileTmpName, "gpx/".$fileName."gpx");
+
+	*/
 	
 	}
 
