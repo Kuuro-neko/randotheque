@@ -65,10 +65,9 @@ if(isset($_POST['inscription'])) {
 
 <?php
 	include 'php/balise_head.php';
+	echo "<body>";
 	include 'php/head.php';
 ?>
-
-<body>
     <form id="connection" action="index.php" class="connexion" method="post">
    		<fieldset>
 			<legend class="title">Connexion</legend>

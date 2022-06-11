@@ -10,10 +10,10 @@ include 'php/deconnexion_utilisateur.php';
 
 <?php
 	include 'php/balise_head.php';
+	echo "<body>";
 	include 'php/head.php';
 ?>
 
-<body>
 	<p id="welcome">Bienvenue sur Randothèque, <?php echo $_SESSION['nom_util'];?></p>
 </body>
 
