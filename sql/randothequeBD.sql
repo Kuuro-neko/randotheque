@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `fichier_gpx` (
   `Nom` varchar(50) DEFAULT NULL,
   `Description` text,
   `Type_de_sport` varchar(50) DEFAULT NULL,
-  `Difficulté` tinyint(4) DEFAULT NULL,
+  `Difficulte` tinyint(4) DEFAULT NULL,
   `Localisation` varchar(50) DEFAULT NULL,
   `Id_Utilisateur` int(11) NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`),
