@@ -9,10 +9,10 @@
 		<div class="boutons">
 			<div class="navigation">
 				<input class="btMenu" type="button" onclick="location.href='acceuil.php';" value="Acceuil"/>
-				<input class="btMenu" type="button" onclick="location.href='';" value="Recherche"/>
+				<input class="btMenu" type="button" onclick="location.href='recherche.php';" value="Recherche"/>
 				<input class="btMenu" type="button" onclick="location.href='import.php';" value="Importer"/>
-				<input class="btMenu" type="button" onclick="location.href='';" value="Chat"/>
-				<input class="btMenu" type="button" onclick="location.href='';" value="A propos"/>
+				<input class="btMenu" type="button" onclick="location.href='chat.php';" value="Chat"/>
+				<input class="btMenu" type="button" onclick="location.href='apropos.php';" value="A propos"/>
 			</div>
 			<div class="deconnexion">
 				<form action="" method="get">
