@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 11, 2022 at 03:11 PM
+-- Generation Time: Jun 11, 2022 at 10:03 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -79,14 +79,19 @@ CREATE TABLE IF NOT EXISTS `fichier_gpx` (
   `Id_Utilisateur` int(11) NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`),
   KEY `Id_Utilisateur` (`Id_Utilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `fichier_gpx`
 --
 
 INSERT INTO `fichier_gpx` (`Id_Fichier_GPX`, `Nom`, `Description`, `Type_de_sport`, `Difficulte`, `Localisation`, `Id_Utilisateur`) VALUES
-(4, '1_4', 'Non renseignÃ©', 'Non renseignÃ©', 0, 'Non renseignÃ©', 1);
+(6, '1_6', 'Description du fichier course Ã  pieds Flourens', 'Course Ã  pieds', 3, 'Flourens', 1),
+(4, '1_4', 'Non renseignÃ©', 'Non renseignÃ©', 0, 'Non renseignÃ©', 1),
+(15, '28_15', 'TrÃ¨s beau chemin en forÃªt, attention toutefois aux horrible-gami sauvages', 'Non renseignÃ©', 5, 'Francorchamp', 28),
+(14, '39_14', 'Non renseignÃ©', 'Course Ã  pieds', 0, 'Non renseignÃ©', 39),
+(13, '14_13', 'Attention il y a des crocodiles affamÃ©s ici !', 'Natation', 4, 'Cambrils', 14),
+(12, '1_12', 'Non renseignÃ©', 'VÃ©lo', 2, 'Non renseignÃ©', 1);
 
 -- --------------------------------------------------------
 

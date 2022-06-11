@@ -39,6 +39,8 @@ include 'php/deconnexion_utilisateur.php';
 			<input type="submit" name="import" value="Importer">
 		</form>
 	</fieldset>
+	<!-- YO !!! Ici, le script php qui suit echo soit une balise <p class="error">, soit une balise <p class="success">
+		A toi le giga chad qui fais le css, mets la mise en forme pour ces 2 classes, texte en rouge / vert... à toi de voir ! uwu -->
 	<?php
 		if(isset($_POST["import"])) {
 			// Insérer les données du fichier gpx dans la table fichier_gpx de la base de données
@@ -89,17 +91,21 @@ include 'php/deconnexion_utilisateur.php';
 					case NULL: // Handle no file extension
 					default:
 						$uploadOk = 0;
-						echo "Le fichier n'est pas un fichier GPX";
+						echo "<p class=\"error\">Le fichier n'est pas un fichier GPX</p>";
 						break;
 				}
 				// Vérification de la taille du fichier
-				if ($_FILES["gpx_file"]["size"] > 500000) {
-					echo "Ce fichier est trop volumineux";
+				if ($_FILES["gpx_file"]["size"] > 8000000) {
+					echo "<p class=\"error\">Ce fichier est trop volumineux</p>";
 					$uploadOk = 0;
 				}
 				// Vérification s'il y a eu une erreur
 				if ($uploadOk == 0) {
-					echo "Votre fichier n'a pas été importé";
+					echo "<p class=\"error\">Votre fichier n'a pas été importé</p>";
+					// Supprimer le fichier_gpx créé dans la base de donnée
+					$req=$linkpdo->prepare("DELETE FROM fichier_gpx WHERE Id_Fichier_Gpx = :id_fichier_gpx");
+					$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
+					$req->execute();
 				// Si tout est ok, upload le fichier
 				} else {
 					$arr = explode(".", $_FILES["gpx_file"]["name"]);
@@ -107,14 +113,17 @@ include 'php/deconnexion_utilisateur.php';
 					// TO-DO : Ajouter le fichier GPX à la BD puis renommer le fichier GPX de cette façon : ID utilisateur_ID fichierGPX.gpx
 					$target_file = $target_dir.$id_utilisateur."_".$last_id.".".$extension;
 					if (move_uploaded_file($_FILES["gpx_file"]["tmp_name"], $target_file)) {
-						echo "Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.";
+						echo "<p class=\"success\">Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.</p>";
 					} else {
-						echo "Une erreur est survenue lors de l'importation du fichier";
+						echo "<p class=\"error\">Une erreur est survenue lors de l'importation du fichier. Erreur #".$_FILES["gpx_file"]["error"]."</p>";
+						// Supprimer le fichier_gpx créé dans la base de donnée
+						$req=$linkpdo->prepare("DELETE FROM fichier_gpx WHERE Id_Fichier_Gpx = :id_fichier_gpx");
+						$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
+						$req->execute();
 					}
 				}
 			} else {
-				echo "Une erreur de communication avec la base de données est survenue";
-				print_r($req->errorInfo());
+				echo "<p class=\"error\">Une erreur de communication avec la base de données est survenue</p>";
 			}
 		}
 	?>
