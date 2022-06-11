@@ -13,23 +13,25 @@ include 'php/deconnexion_utilisateur.php';
 	echo "<body>";
 	include 'php/head.php';
 ?>
-	<form action="import.php" method="post" enctype="multipart/form-data">
-		Importer une trace : 
-		<input type="file" name="gpx_file" id="gpx_file" required></br>
-		<input type="text" name="type_de_sport" id="type_de_sport" placeholder="Type de sport"></br>
-		<input type="text" name="localisation" id="localisation" placeholder="Localisation"></br>
-		<select name="difficulte" id="difficulte" placeholder="Difficulté">
-			<option value="null">Difficulté</option>
-			<option value="null">Non renseigné</option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select></br>
-		<textarea name="description" id="description" placeholder="Description"></textarea></br>
-		<input type="submit" name="import" value="Importer">
-	</form>
+	<fieldset id="import">
+		<legend class="title">Importer un fichier GPX</legend>
+		<form action="import.php" method="post" enctype="multipart/form-data">
+			<input type="file" name="gpx_file" id="gpx_file" required></br>
+			<input type="text" name="type_de_sport" id="type_de_sport" placeholder="Type de sport"></br>
+			<input type="text" name="localisation" id="localisation" placeholder="Localisation"></br>
+			<select name="difficulte" id="difficulte" placeholder="Difficulté">
+				<option value="null">Difficulté</option>
+				<option value="null">Non renseigné</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select></br>
+			<textarea name="description" id="description" placeholder="Description"></textarea></br>
+			<input type="submit" name="import" value="Importer">
+		</form>
+	</fieldset>
 	<?php
 		if(isset($_POST["import"])) {
 			$target_dir = "gpx/";
