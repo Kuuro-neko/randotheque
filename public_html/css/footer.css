@@ -10,7 +10,7 @@ footer {
 	text-align: center;
 	align-items: center;
 	justify-content: space-between;
-	border-top: 2px solid rgb(98, 98, 98);
+	border-top: 2px solid var(--border-color);
 	z-index: 3;
 }
 

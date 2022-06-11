@@ -1,3 +1,10 @@
+:root {
+    --vert-clair: #a3c67b;
+    --vert-fonce: #374c2c;
+    --beige: #B6AC96;
+    --border-color: rgb(98, 98, 98);
+}
+
 body {
     background-color: #f5f5f5;
     color: #333;

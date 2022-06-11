@@ -8,7 +8,7 @@
 	margin: auto;
 	padding-bottom: 10px;
 	width: 100%;
-	border-bottom: 2px solid rgb(98, 98, 98);
+	border-bottom: 2px solid var(--border-color);
 	z-index: 3;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .titreEtBoutons {
-		background-color : #a3c67b;
+		background-color : var(--vert-clair);
 		
 		display : flex;
 		flex-direction : column;
@@ -43,10 +43,10 @@ h1 {
 }
 
 .btMenu, .btDeco {
-		background-color : #B6AC96;
+		background-color : var(--beige);
 		border-radius : 5px;
-		border : 1px solid #B6AC96;
-		color : #374c2c;
+		border : 1px solid var(--beige);
+		color : var(--vert-fonce);
 		padding : 5px;
 		margin-left : 10px;
 		margin-top : 10px;
@@ -55,6 +55,6 @@ h1 {
 		font-weight : bold;
 }
 .btMenu:hover, .btDeco:hover {
-		background-color : #374c2c;
-		color : #B6AC96;
+		background-color : var(--vert-fonce);
+		color : var(--beige);
 }
