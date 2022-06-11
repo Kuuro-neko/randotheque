@@ -34,6 +34,8 @@ include 'php/deconnexion_utilisateur.php';
 	</fieldset>
 	<?php
 		if(isset($_POST["import"])) {
+			require 'php/connexiondb.php';
+			
 			$target_dir = "gpx/";
 			$target_file = $target_dir . basename($_FILES["gpx_file"]["name"]);
 			$uploadOk = 1;

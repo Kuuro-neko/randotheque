@@ -17,7 +17,7 @@ if(!empty($_SESSION['signedin'])) {
 // Si formulaire de connection rempli (les champs sont forcément remplis grâce au required du <form>)
 if(isset($_POST['connection'])) {
 	// Recherche dans la BD
-	$reqConnect = $linkpdo->prepare('SELECT Nom_d_utilisateur FROM utilisateur
+	$reqConnect = $linkpdo->prepare('SELECT Nom_d_utilisateur, Id_Utilisateur FROM utilisateur
 	WHERE (Nom_d_utilisateur LIKE :log_in OR Mail LIKE :log_in) AND Mot_de_passe LIKE :mdp_connect');
 	$reqConnect->execute(array('log_in'=>$_POST['login_connect'], 'mdp_connect'=>$_POST['mdp_connect']));
 
@@ -25,7 +25,8 @@ if(isset($_POST['connection'])) {
 	if($data = $reqConnect->fetch()) {
 		$_SESSION['signedin'] = true;
 		$_SESSION['nom_util'] = $data['Nom_d_utilisateur'];
-		header("Location: accueil.php");
+		$_SESSION['id_util'] = $data['Id_Utilisateur'];
+		header("Location: acceuil.php");
 	} else {
 	// Sinon msgErreurConnection : mdp ou login erroné
 		$msgErreurConnect = "Login ou mot de passe erroné";
