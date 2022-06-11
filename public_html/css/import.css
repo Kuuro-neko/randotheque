@@ -1,0 +1,11 @@
+#formimport {
+    display: grid; 
+    grid-template-columns: 0.2fr 0.8fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    gap: 0px 0px; 
+    padding: 5px;
+}
+
+#import {
+    margin: 0 10%;
+}

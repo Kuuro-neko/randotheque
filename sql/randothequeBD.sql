@@ -79,7 +79,14 @@ CREATE TABLE IF NOT EXISTS `fichier_gpx` (
   `Id_Utilisateur` int(11) NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`),
   KEY `Id_Utilisateur` (`Id_Utilisateur`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `fichier_gpx`
+--
+
+INSERT INTO `fichier_gpx` (`Id_Fichier_GPX`, `Nom`, `Description`, `Type_de_sport`, `Difficulte`, `Localisation`, `Id_Utilisateur`) VALUES
+(4, '1_4', 'Non renseignÃ©', 'Non renseignÃ©', 0, 'Non renseignÃ©', 1);
 
 -- --------------------------------------------------------
 
@@ -463,7 +470,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- Trigger Before pour le nom du fic gpx
-CREATE OR REPLACE TRIGGER `T_B_I_fichier_gpx` BEFORE INSERT ON `fichier_gpx`
- FOR EACH ROW SET NEW.Nom = CONCAT(NEW.Id_Utilisateur, '_', NEW.Id_Fichier_Gpx);
