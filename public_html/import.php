@@ -91,7 +91,7 @@ include 'php/deconnexion_utilisateur.php';
 			$req->bindValue(':id_utilisateur', $id_utilisateur, PDO::PARAM_STR);
 			$req->bindValue(':type_de_sport', $type_de_sport, PDO::PARAM_STR);
 			$req->bindValue(':localisation', $localisation, PDO::PARAM_STR);
-			$req->bindValue(':difficulte', $difficulte, PDO::PARAM_STR);
+			$req->bindValue(':difficulte', $difficulte, PDO::PARAM_INT);
 			$req->bindValue(':description', $description, PDO::PARAM_STR);
 			
 			if($req->execute()) {
@@ -106,6 +106,7 @@ include 'php/deconnexion_utilisateur.php';
 				$uploadOk = 1;
 				$gpxFileType = pathinfo($target_file, PATHINFO_EXTENSION);
 				$file_parts = pathinfo($_FILES["gpx_file"]["name"]);
+				
 
 				switch($file_parts['extension']){
 					case "gpx":
@@ -134,10 +135,51 @@ include 'php/deconnexion_utilisateur.php';
 				} else {
 					$arr = explode(".", $_FILES["gpx_file"]["name"]);
 					$extension = end($arr);
-					// TO-DO : Ajouter le fichier GPX à la BD puis renommer le fichier GPX de cette façon : ID utilisateur_ID fichierGPX.gpx
 					$target_file = $target_dir.$id_utilisateur."_".$last_id.".".$extension;
 					if (move_uploaded_file($_FILES["gpx_file"]["tmp_name"], $target_file)) {
 						echo "<p class=\"success\">Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.</p>";
+
+						/*
+						// Donner le corps de la fonction distance
+						function haversineGreatCircleDistance(
+							$latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+						  {
+							// convert from degrees to radians
+							$latFrom = deg2rad($latitudeFrom);
+							$lonFrom = deg2rad($longitudeFrom);
+							$latTo = deg2rad($latitudeTo);
+							$lonTo = deg2rad($longitudeTo);
+						  
+							$latDelta = $latTo - $latFrom;
+							$lonDelta = $lonTo - $lonFrom;
+						  
+							$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+							  cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+							return $angle * $earthRadius;
+						  }
+
+						// Calculer la distance entre tous les waypoints du fichier gpx
+						$distance = 0;
+						$xml = simplexml_load_file($target_file);
+						$last_lat = false;
+						$last_lon = false;
+						$total_distance = 0;
+						foreach($xml->trk->trkseg->trkpt as $wpt) {
+							$trkptlat = (float) $wpt->attributes()->lat;
+							$trkptlon = (float) $wpt->attributes()->lon;
+							if($last_lat){
+								$total_distance+=haversineGreatCircleDistance($trkptlat, $trkptlon, $last_lat, $last_lon);
+							}
+							$last_lat = $trkptlat;
+							$last_lon = $trkptlon;
+						}
+						// Ajouter la distance calculée dans la base de données
+						$req=$linkpdo->prepare("UPDATE fichier_gpx SET Distance = :distance WHERE Id_Fichier_Gpx = :id_fichier_gpx");
+						$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
+						$req->bindValue(':distance', $total_distance, PDO::PARAM_STR);
+						$req->execute();
+						*/
+
 					} else {
 						echo "<p class=\"error\">Une erreur est survenue lors de l'importation du fichier. Erreur #".$_FILES["gpx_file"]["error"]."</p>";
 						// Supprimer le fichier_gpx créé dans la base de donnée
@@ -148,6 +190,7 @@ include 'php/deconnexion_utilisateur.php';
 				}
 			} else {
 				echo "<p class=\"error\">Une erreur de communication avec la base de données est survenue</p>";
+				var_dump($linkpdo->errorInfo());
 			}
 		}
 	?>
