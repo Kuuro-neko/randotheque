@@ -12,7 +12,12 @@ include 'php/deconnexion_utilisateur.php';
 
 <?php
 	include 'php/balise_head.php';
-	echo "<body>";
+?>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+	<body onload="initialize()">
+
+<?php
 	include 'php/head.php';
 ?>
 	<div id="main">
@@ -56,16 +61,28 @@ include 'php/deconnexion_utilisateur.php';
 				<input type="submit" value="Rechercher">
 			</form>
 		</div>
-		<div id="map">
-		</div>
+		<div id="map"></div>
 		<div id="résultatRechercheTrace">
 		</div>
 	</div>
 
 </body>
 
-<script>
-	/* Credits : https://codepen.io/joosts/pen/rNLdxvK */
+<script type="text/javascript">
+    function initialize() {
+        var map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 18
+
+        var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        });
+    
+        map.addLayer(osmLayer);
+    }
+</script>
+
+<script type="text/javascript">
+	/* Double range slider credits : https://codepen.io/joosts/pen/rNLdxvK */
 	var thumbsize = 14;
 
 	function draw(slider,splitvalue) {
@@ -178,6 +195,7 @@ include 'php/deconnexion_utilisateur.php';
 	sliders.forEach( function(slider) {
 		init(slider);
 	});
+	/* End double range slider JS code */
 </script>
 <?php
 	include 'php/footer.php';
