@@ -65,8 +65,31 @@ include 'php/deconnexion_utilisateur.php';
 		<div id="résultatRechercheTrace">
 		</div>
 	</div>
+	<?php
+		// Define parse_waypoints() function
+		function parse_waypoints($gpx_file) {
+			$xml = simplexml_load_file($gpx_file);
+			$waypoints = array();
+			foreach ($xml->trk->trkseg->trkpt as $wpt) {
+				$waypoints[] = array(
+					'lat' => (float) $wpt->attributes()->lat,
+					'lon' => (float) $wpt->attributes()->lon
+				);
+			}
+			return $waypoints;
+		}
 
+		// Load gpx/test.gpx, xml file containing the waypoints of a GPX file
+		$gpx_file = 'gpx/test.gpx';
+		$waypoints = parse_waypoints($gpx_file);
+		var_dump($waypoints);
+	?>
+<?php
+	include 'php/footer.php';
+?>
 </body>
+
+
 
 <script type="text/javascript">
     function initialize() {
@@ -76,7 +99,19 @@ include 'php/deconnexion_utilisateur.php';
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19
         });
-    
+
+		// Create a polyline from $waypoints
+		var polyline = L.polyline(<?php echo json_encode($waypoints); ?>, {
+			color: 'red',
+			weight: 5,
+			opacity: 1,
+			smoothFactor: 1
+		});
+
+		// Add the polyline to the map
+		polyline.addTo(map);
+
+
         map.addLayer(osmLayer);
     }
 </script>
@@ -197,7 +232,4 @@ include 'php/deconnexion_utilisateur.php';
 	});
 	/* End double range slider JS code */
 </script>
-<?php
-	include 'php/footer.php';
-?>
 </html>
