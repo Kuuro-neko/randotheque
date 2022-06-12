@@ -33,8 +33,17 @@ span.value.upper::after {content: "km"; display: inline-block; margin-left: 0.4e
   align-items: center;
   margin-bottom: 1em;
   width: 100%;
+  margin: 5px 5%;
+  width: 90%;
 }
 
 #formsearch > * {
   margin-right: 1em;
+}
+
+#map {
+    margin: 5px 5%;
+    width: 90%;
+    height: 50em;
+    z-index: 0;
 }

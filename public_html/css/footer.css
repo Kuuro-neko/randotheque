@@ -5,6 +5,7 @@ footer {
     left: 0px;
     right: 0px;
     margin-bottom: 0px;
+	background-color: var(--vert-clair);
 	
 	display: flex;
 	text-align: center;

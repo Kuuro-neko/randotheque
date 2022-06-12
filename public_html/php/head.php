@@ -1,8 +1,9 @@
 <div class="enTete">
-	<div class="image">
-		<img class="logo" src="images/logo.png" alt="Logo de l'application randothèque" height="85">
-	</div>
+	
 	<div class="titreEtBoutons">
+		<div class="image">
+			<img class="logo" src="images/logo.png" alt="Logo de l'application randothèque" height="50">
+		</div>
 		<div class="titre">
 			<h1>Randothèque</h1>
 		</div>

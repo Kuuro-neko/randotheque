@@ -1,7 +1,7 @@
 
 
 .enTete {
-	height: 70px;
+	height: 20px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -13,24 +13,26 @@
 }
 
 .image {
-	position: fixed;
+
 	background-color: beige;
-	border-radius: 50px;
-	margin: 10px;
+	border-radius: 20px;
+	margin: 5px;
 }
 
 .titreEtBoutons {
 		background-color : var(--vert-clair);
 		
 		display : flex;
-		flex-direction : column;
-		
+		flex-direction : row;
+		justify-content: space-between;
 		padding-right : 10px;
+		height: 70px;
 }
 
 .titre {
 	display : flex;
 	justify-content : center;
+	margin-left: 30%;
 }
 
 h1 {
@@ -40,6 +42,8 @@ h1 {
 .boutons {
 	display : flex;
 	justify-content : flex-end;
+	padding-top: 20px;
+	
 }
 
 .btMenu, .btDeco {
