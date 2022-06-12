@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 11, 2022 at 10:03 PM
+-- Generation Time: Jun 12, 2022 at 03:32 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ami` (
   `Id_Utilisateur_avoir` int(11) NOT NULL,
   PRIMARY KEY (`Id_Utilisateur_être`,`Id_Utilisateur_avoir`),
   KEY `Id_Utilisateur_avoir` (`Id_Utilisateur_avoir`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `caracteriser` (
   `Id_Mot_clefs` int(11) NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`,`Id_Mot_clefs`),
   KEY `Id_Mot_clefs` (`Id_Mot_clefs`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `caracteriser` (
 DROP TABLE IF EXISTS `conversation`;
 CREATE TABLE IF NOT EXISTS `conversation` (
   `Id_Conversation` int(11) NOT NULL AUTO_INCREMENT,
-  `Libellé` varchar(100) DEFAULT NULL,
+  `Libellé` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Conversation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -71,27 +71,28 @@ CREATE TABLE IF NOT EXISTS `conversation` (
 DROP TABLE IF EXISTS `fichier_gpx`;
 CREATE TABLE IF NOT EXISTS `fichier_gpx` (
   `Id_Fichier_GPX` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(50) DEFAULT NULL,
-  `Description` text,
-  `Type_de_sport` varchar(50) DEFAULT NULL,
+  `Nom` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Description` mediumtext COLLATE utf8mb4_unicode_ci,
+  `Type_de_sport` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Difficulte` tinyint(4) DEFAULT NULL,
-  `Localisation` varchar(50) DEFAULT NULL,
+  `Localisation` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Id_Utilisateur` int(11) NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`),
   KEY `Id_Utilisateur` (`Id_Utilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fichier_gpx`
 --
 
 INSERT INTO `fichier_gpx` (`Id_Fichier_GPX`, `Nom`, `Description`, `Type_de_sport`, `Difficulte`, `Localisation`, `Id_Utilisateur`) VALUES
-(6, '1_6', 'Description du fichier course Ã  pieds Flourens', 'Course Ã  pieds', 3, 'Flourens', 1),
+(6, '1_6', 'Description du fichier course Ã  pieds Flourens', 'Course à pied', 3, 'Flourens', 1),
 (4, '1_4', 'Non renseignÃ©', 'Non renseignÃ©', 0, 'Non renseignÃ©', 1),
 (15, '28_15', 'TrÃ¨s beau chemin en forÃªt, attention toutefois aux horrible-gami sauvages', 'Non renseignÃ©', 5, 'Francorchamp', 28),
-(14, '39_14', 'Non renseignÃ©', 'Course Ã  pieds', 0, 'Non renseignÃ©', 39),
+(14, '39_14', 'Non renseignÃ©', 'Course à pied', 0, 'Non renseignÃ©', 39),
 (13, '14_13', 'Attention il y a des crocodiles affamÃ©s ici !', 'Natation', 4, 'Cambrils', 14),
-(12, '1_12', 'Non renseignÃ©', 'VÃ©lo', 2, 'Non renseignÃ©', 1);
+(12, '1_12', 'Non renseignÃ©', 'VÃ©lo', 2, 'Non renseignÃ©', 1),
+(16, '1_16', 'StylÃ©', 'Marche', 2, 'Toulouse', 1);
 
 -- --------------------------------------------------------
 
@@ -104,10 +105,10 @@ CREATE TABLE IF NOT EXISTS `interagir` (
   `Id_Utilisateur` int(11) NOT NULL,
   `Id_Fichier_GPX` int(11) NOT NULL,
   `Note` tinyint(4) DEFAULT NULL,
-  `Commentaire` text,
+  `Commentaire` mediumtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`Id_Utilisateur`,`Id_Fichier_GPX`),
   KEY `Id_Fichier_GPX` (`Id_Fichier_GPX`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -119,11 +120,11 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
   `Id_Utilisateur` int(11) NOT NULL,
   `Date_heure` datetime NOT NULL,
-  `Contenu` text,
+  `Contenu` mediumtext COLLATE utf8mb4_unicode_ci,
   `Id_Conversation` int(11) NOT NULL,
   PRIMARY KEY (`Id_Utilisateur`,`Date_heure`),
   KEY `Id_Conversation` (`Id_Conversation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -134,9 +135,9 @@ CREATE TABLE IF NOT EXISTS `message` (
 DROP TABLE IF EXISTS `mot_clefs`;
 CREATE TABLE IF NOT EXISTS `mot_clefs` (
   `Id_Mot_clefs` int(11) NOT NULL AUTO_INCREMENT,
-  `Libellé` varchar(30) DEFAULT NULL,
+  `Libellé` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Mot_clefs`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `participer` (
   `Id_Conversation` int(11) NOT NULL,
   PRIMARY KEY (`Id_Utilisateur`,`Id_Conversation`),
   KEY `Id_Conversation` (`Id_Conversation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -161,9 +162,9 @@ CREATE TABLE IF NOT EXISTS `participer` (
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE IF NOT EXISTS `photo` (
   `Id_Fichier_GPX` int(11) NOT NULL,
-  `Nom` varchar(50) NOT NULL,
+  `Nom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`,`Nom`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -174,17 +175,17 @@ CREATE TABLE IF NOT EXISTS `photo` (
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT,
-  `Mail` varchar(50) NOT NULL,
-  `Nom_d_utilisateur` varchar(50) NOT NULL,
-  `Mot_de_passe` varchar(50) NOT NULL,
+  `Mail` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Nom_d_utilisateur` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Mot_de_passe` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Poids` int(11) DEFAULT NULL,
   `Taille` int(11) DEFAULT NULL,
-  `Sexe` char(1) DEFAULT NULL,
-  `DateN` varchar(50) DEFAULT NULL,
+  `Sexe` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `DateN` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Utilisateur`),
   UNIQUE KEY `Nom_d_utilisateur` (`Nom_d_utilisateur`),
   UNIQUE KEY `Mail` (`Mail`)
-) ENGINE=MyISAM AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=501 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `utilisateur`
