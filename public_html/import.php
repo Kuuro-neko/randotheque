@@ -21,11 +21,35 @@ include 'php/deconnexion_utilisateur.php';
 			<label for="fichier">Fichier GPX :</label>
 			<input type="file" name="gpx_file" id="gpx_file" required>
 			<label for="type_de_sport">Type de sport :</label>
-			<input type="text" name="type_de_sport" id="type_de_sport" placeholder="Type de sport">
+			<select type="text" name="type_de_sport" id="type_de_sport">
+				<option value="">Type de sport</option>
+				<option value="">Non renseigné</option>
+				<option value="Vélo">Vélo</option>
+				<option value="Course à pied">Course à pied</option>
+				<option value="Natation">Natation</option>
+				<option value="Randonnée">Randonnée</option>
+				<option value="Marche">Marche</option>
+				<option value="Ski alpin">Ski alpin</option>
+				<option value="Ski de randonnée">Ski de randonnée</option>
+				<option value="Canoë">Canoë</option>
+				<option value="Roller">Roller</option>
+				<option value="Kayak">Kayak</option>
+				<option value="Kitesurf">Kitesurf</option>
+				<option value="Ski nordique">Ski nordique</option>
+				<option value="Escalade">Escalade</option>
+				<option value="Ski à roulettes">Ski à roulettes</option>
+				<option value="Aviron">Aviron</option>
+				<option value="Snowboard">Snowboard</option>
+				<option value="Raquettes">Raquettes</option>
+				<option value="Stand up paddle">Stand up paddle</option>
+				<option value="Surf">Surf</option>
+				<option value="Fauteuil roulant">Fauteuil roulant</option>
+				<option value="Other">Autre</option>
+			</select>
 			<label for="localisation">Localisation :</label>
 			<input type="text" name="localisation" id="localisation" placeholder="Localisation">
 			<label for="difficulte">Difficulté :</label>
-			<select name="difficulte" id="difficulte" placeholder="Difficulté">
+			<select name="difficulte" id="difficulte">
 				<option value="null">Difficulté</option>
 				<option value="null">Non renseigné</option>
 				<option value="1">1</option>

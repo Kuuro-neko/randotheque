@@ -3,6 +3,8 @@ session_start();
 $thisPageTitle = "Randothèque - Recherche"; // Titre de l'onglet
 $thisPage = "recherche"; // Pour lier à la bonne feuille CSS
 
+require 'php/config.php';
+require 'php/connexiondb.php'; // Crée $linkpdo
 include 'php/deconnexion_utilisateur.php';
 ?>
 <!DOCTYPE html>
@@ -13,8 +15,12 @@ include 'php/deconnexion_utilisateur.php';
 	echo "<body>";
 	include 'php/head.php';
 ?>
+	<div id="main">
+		<h1>Recherche de trace</h1>
+		<?php
+		?>
+	</div>
 
-	<p>Recherche de trace</p>
 </body>
 
 <?php
