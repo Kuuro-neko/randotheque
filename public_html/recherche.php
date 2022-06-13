@@ -28,8 +28,8 @@ include 'php/deconnexion_utilisateur.php';
 				<input type="text" name="recherche" id="recherche" placeholder="Saisissez des mots-clef">
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
-					<option value="">Type de sport</option>
-					<option value="">Tous les sports</option>
+					<option value="%">Type de sport</option>
+					<option value="%">Tous les sports</option>
 					<option value="Vélo">Vélo</option>
 					<option value="Course à pied">Course à pied</option>
 					<option value="Natation">Natation</option>
@@ -62,10 +62,44 @@ include 'php/deconnexion_utilisateur.php';
 			</form>
 		</div>
 		<div id="map"></div>
+		<?php
+			// si le formulaire est rempli
+			if(isset($_POST['recherche'])){
+						// Récupération des données de la recherche
+				$recherche = $_POST['recherche'];
+				$type_de_sport = $_POST['type_de_sport'];
+				$min = $_POST['min'];
+				$max = $_POST['max'];
+
+				// Requete en fonction des données de la recherche dans la table fichier_gpx de la base de données
+				$sql = "SELECT * FROM fichier_gpx WHERE (Description LIKE '%$recherche%' OR Localisation LIKE '%$recherche%') AND Type_de_sport LIKE '%$type_de_sport%' AND Distance BETWEEN $min AND $max";
+				$result = $linkpdo->query($sql);
+				$result->setFetchMode(PDO::FETCH_ASSOC);
+				$resultat = $result->fetchAll();
+			}
+		?>
 		<div id="résultatRechercheTrace">
+			<?php
+				// Afficher les résultats de la recherche
+				if(isset($resultat)){
+					foreach($resultat as $ligne){
+						echo '<div class="resultatRechercheTrace">';
+						echo '<a href="visualisation.php?id_gpx='.$ligne['Id_Fichier_GPX'].'">';
+						echo '<h2>'.$ligne['Localisation'].'</h2>';
+						echo '<p>'.$ligne['Description'].'</p>';
+						echo '<p>'.$ligne['Type_de_sport'].'</p>';
+						echo '<p>'.$ligne['Distance'].' km</p>';
+						echo '</a>';
+						echo '</div>';
+					}
+				}
+			?>
 		</div>
 	</div>
 	<?php
+
+
+
 		function parse_waypoints($gpx_file) {
 			$xml = simplexml_load_file($gpx_file);
 			$waypoints = array();
@@ -80,10 +114,7 @@ include 'php/deconnexion_utilisateur.php';
 			return $waypoints;
 		}
 
-		// Load gpx/test.gpx, xml file containing the waypoints of a GPX file
-		$gpx_file = 'gpx/test.gpx';
-		$waypoints = parse_waypoints($gpx_file);
-		var_dump($waypoints);
+
 	?>
 <?php
 	include 'php/footer.php';
