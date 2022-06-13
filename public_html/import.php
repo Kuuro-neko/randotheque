@@ -152,10 +152,9 @@ include 'php/deconnexion_utilisateur.php';
 					if (move_uploaded_file($_FILES["gpx_file"]["tmp_name"], $target_file)) {
 						echo "<div class=\"message\"><p class=\"success\">Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.</p></div>";
 
-						/*
 						// Donner le corps de la fonction distance
 						function haversineGreatCircleDistance(
-							$latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+							$latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371)
 						  {
 							// convert from degrees to radians
 							$latFrom = deg2rad($latitudeFrom);
@@ -177,21 +176,22 @@ include 'php/deconnexion_utilisateur.php';
 						$last_lat = false;
 						$last_lon = false;
 						$total_distance = 0;
-						foreach($xml->trk->trkseg->trkpt as $wpt) {
-							$trkptlat = (float) $wpt->attributes()->lat;
-							$trkptlon = (float) $wpt->attributes()->lon;
-							if($last_lat){
-								$total_distance+=haversineGreatCircleDistance($trkptlat, $trkptlon, $last_lat, $last_lon);
+						foreach($xml->trk->trkseg as $trkseg) {
+							foreach($trkseg->trkpt as $wpt) {
+								$trkptlat = (float) $wpt->attributes()->lat;
+								$trkptlon = (float) $wpt->attributes()->lon;
+								if($last_lat){
+									$total_distance+=haversineGreatCircleDistance($trkptlat, $trkptlon, $last_lat, $last_lon);
+								}
+								$last_lat = $trkptlat;
+								$last_lon = $trkptlon;
 							}
-							$last_lat = $trkptlat;
-							$last_lon = $trkptlon;
 						}
 						// Ajouter la distance calculée dans la base de données
 						$req=$linkpdo->prepare("UPDATE fichier_gpx SET Distance = :distance WHERE Id_Fichier_Gpx = :id_fichier_gpx");
 						$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
 						$req->bindValue(':distance', $total_distance, PDO::PARAM_STR);
 						$req->execute();
-						*/
 
 					} else {
 						echo "<div class=\"message\"><p class=\"error\">Une erreur est survenue lors de l'importation du fichier. Erreur #".$_FILES["gpx_file"]["error"]."</p></div>";
