@@ -1,7 +1,7 @@
 <?php
 session_start();
 $thisPageTitle = "Randothèque - Importer un fichier GPX"; // Titre de l'onglet
-$thisPage = "import2"; // Pour lier à la bonne feuille CSS
+$thisPage = "import"; // Pour lier à la bonne feuille CSS
 
 require 'php/config.php';
 require 'php/connexiondb.php'; // Crée $linkpdo
