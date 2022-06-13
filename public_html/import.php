@@ -129,17 +129,17 @@ include 'php/deconnexion_utilisateur.php';
 					case NULL: // Handle no file extension
 					default:
 						$uploadOk = 0;
-						echo "<p class=\"error\">Le fichier n'est pas un fichier GPX</p>";
+						echo "<div class=\"message\"><p class=\"error\">Le fichier n'est pas un fichier GPX</p></div>";
 						break;
 				}
 				// Vérification de la taille du fichier
 				if ($_FILES["gpx_file"]["size"] > 8000000) {
-					echo "<p class=\"error\">Ce fichier est trop volumineux</p>";
+					echo "<div class=\"message\"><p class=\"error\">Ce fichier est trop volumineux</p></div>";
 					$uploadOk = 0;
 				}
 				// Vérification s'il y a eu une erreur
 				if ($uploadOk == 0) {
-					echo "<p class=\"error\">Votre fichier n'a pas été importé</p>";
+					echo "<div class=\"message\"><p class=\"error\">Votre fichier n'a pas été importé</p></div>";
 					// Supprimer le fichier_gpx créé dans la base de donnée
 					$req=$linkpdo->prepare("DELETE FROM fichier_gpx WHERE Id_Fichier_Gpx = :id_fichier_gpx");
 					$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
@@ -150,7 +150,7 @@ include 'php/deconnexion_utilisateur.php';
 					$extension = end($arr);
 					$target_file = $target_dir.$id_utilisateur."_".$last_id.".".$extension;
 					if (move_uploaded_file($_FILES["gpx_file"]["tmp_name"], $target_file)) {
-						echo "<p class=\"success\">Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.</p>";
+						echo "<div class=\"message\"><p class=\"success\">Le fichier ". basename( $_FILES["gpx_file"]["name"]). " a été importé avec succès.</p></div>";
 
 						/*
 						// Donner le corps de la fonction distance
@@ -194,7 +194,7 @@ include 'php/deconnexion_utilisateur.php';
 						*/
 
 					} else {
-						echo "<p class=\"error\">Une erreur est survenue lors de l'importation du fichier. Erreur #".$_FILES["gpx_file"]["error"]."</p>";
+						echo "<div class=\"message\"><p class=\"error\">Une erreur est survenue lors de l'importation du fichier. Erreur #".$_FILES["gpx_file"]["error"]."</p></div>";
 						// Supprimer le fichier_gpx créé dans la base de donnée
 						$req=$linkpdo->prepare("DELETE FROM fichier_gpx WHERE Id_Fichier_Gpx = :id_fichier_gpx");
 						$req->bindValue(':id_fichier_gpx', $last_id, PDO::PARAM_STR);
