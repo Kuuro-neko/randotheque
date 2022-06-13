@@ -16,7 +16,6 @@ include 'php/deconnexion_utilisateur.php';
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 	<body onload="initialize()">
-
 <?php
 	include 'php/head.php';
 ?>
@@ -25,11 +24,28 @@ include 'php/deconnexion_utilisateur.php';
 		<div id="searchMenu">
 			<form id="formsearch" action="recherche.php" method="post">
 				<label for="recherche">Recherche :</label>
-				<input type="text" name="recherche" id="recherche" placeholder="Saisissez des mots-clef">
+				<?php
+					// Si des mots-clef ont été saisis, on les affiche
+					if(isset($_POST['recherche'])){
+						$value = "value=\"".$_POST['recherche']."\"";
+						$placeholder = "";
+					} else {
+						$value = "";
+						$placeholder = "Saisissez des mots-clef";
+					}
+				?>
+				<input type="text" name="recherche" id="recherche" placeholder="<?php echo $placeholder; ?>" <?php echo $value; ?> />
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
-					<option value="">Type de sport</option>
-					<option value="">Tous les sports</option>
+					<?php 
+						// Si le type de sport a été rempli, on le réaffiche
+						if(isset($_POST['type_de_sport'])){
+							if($_POST['type_de_sport'] != "%"){
+								echo "<option value='".$_POST['type_de_sport']."'>".$_POST['type_de_sport']."</option>";
+							}
+						}
+					?>
+					<option value="%">Type de sport</option>
 					<option value="Vélo">Vélo</option>
 					<option value="Course à pied">Course à pied</option>
 					<option value="Natation">Natation</option>
@@ -53,70 +69,61 @@ include 'php/deconnexion_utilisateur.php';
 				</select>
 				<label for="distance" id="distance">Distance :</label>
 				<div class="min-max-distance" data-legendnum="2">
+					<?php
+						// Si le min et le max ont été remplis, on les affiche
+						if(isset($_POST['min']) && isset($_POST['max'])){
+							$min_distance = $_POST['min'];
+							$max_distance = $_POST['max'];
+						} else {
+							$min_distance = 0;
+							$max_distance = 3000;
+						}
+					?>
 					<label for="min">Distance minimum</label>
-					<input id="min" class="min" name="min" type="range" step="1" min="0" max="3000" />
+					<input id="min" class="min" name="min" type="range" step="1" min="0" max="3000" value="<?php echo $min_distance; ?>">
 					<label for="max">Distance maximum</label>
-					<input id="max" class="max" name="max" type="range" step="1" min="0" max="3000" />
+					<input id="max" class="max" name="max" type="range" step="1" min="0" max="3000" value="<?php echo $max_distance; ?>">
 				</div>
 				<input type="submit" value="Rechercher">
 			</form>
 		</div>
-		<div id="map"></div>
+		<?php
+			// si le formulaire est rempli
+			if(isset($_POST['recherche'])){
+						// Récupération des données de la recherche
+				$recherche = $_POST['recherche'];
+				$type_de_sport = $_POST['type_de_sport'];
+				$min = $_POST['min'];
+				$max = $_POST['max'];
+
+				// Requete en fonction des données de la recherche dans la table fichier_gpx de la base de données
+				$sql = "SELECT * FROM fichier_gpx WHERE (Description LIKE '%$recherche%' OR Localisation LIKE '%$recherche%') AND Type_de_sport LIKE '%$type_de_sport%' AND Distance BETWEEN $min AND $max";
+				$result = $linkpdo->query($sql);
+				$result->setFetchMode(PDO::FETCH_ASSOC);
+				$resultat = $result->fetchAll();
+			}
+		?>
 		<div id="résultatRechercheTrace">
+			<?php
+				// Afficher les résultats de la recherche
+				if(isset($resultat)){
+
+					echo "<table class=\"gpx_table\">";
+					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Distance</th><th>Visualiser la trace</th></tr>";
+					foreach($resultat as $gpx) {
+						// Afficher la Description, le Type_de_sport, la Difficulté et la Localisation du $gpx dans les lignes du tableau
+						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>".$gpx['Distance']." km</td><td><a href=\"visualisation.php?id_gpx=".$gpx['Id_Fichier_GPX']."\">Visualiser</a></td></tr>";
+					}
+					echo "</table>";
+
+				}
+			?>
 		</div>
 	</div>
-	<?php
-		function parse_waypoints($gpx_file) {
-			$xml = simplexml_load_file($gpx_file);
-			$waypoints = array();
-			foreach ($xml->trk->trkseg as $trkseg) {
-				foreach ($trkseg->trkpt as $wpt) {
-					$waypoints[] = array(
-						'lat' => (float) $wpt->attributes()->lat,
-						'lon' => (float) $wpt->attributes()->lon
-					);
-				}
-			}
-			return $waypoints;
-		}
-
-		// Load gpx/test.gpx, xml file containing the waypoints of a GPX file
-		$gpx_file = 'gpx/test.gpx';
-		$waypoints = parse_waypoints($gpx_file);
-		var_dump($waypoints);
-	?>
 <?php
 	include 'php/footer.php';
 ?>
 </body>
-
-
-
-<script type="text/javascript">
-    function initialize() {
-        var map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 18
-
-        var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
-        });
-
-		// Create a polyline from $waypoints
-		var polyline = L.polyline(<?php echo json_encode($waypoints); ?>, {
-			color: 'red',
-			weight: 5,
-			opacity: 1,
-			smoothFactor: 1
-		});
-
-		// Add the polyline to the map
-		polyline.addTo(map);
-
-
-        map.addLayer(osmLayer);
-    }
-</script>
-
 <script type="text/javascript">
 	/* Double range slider credits : https://codepen.io/joosts/pen/rNLdxvK */
 	var thumbsize = 14;

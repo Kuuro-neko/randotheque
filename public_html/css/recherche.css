@@ -34,16 +34,32 @@ span.value.upper::after {content: "km"; display: inline-block; margin-left: 0.4e
   margin-bottom: 1em;
   width: 100%;
   margin: 5px 5%;
-  width: 90%;
 }
 
 #formsearch > * {
   margin-right: 1em;
 }
 
-#map {
-    margin: 5px 5%;
-    width: 90%;
-    height: 50em;
-    z-index: 0;
+th {
+	text-align: center;
+	padding: 5px;
+	background-color: var(--vert-clair);
+	border-radius: 5px;
+	border: 1px solid var(--vert-fonce);
+}
+
+tr {
+	text-align: center;
+	padding: 5px;
+	background-color: var(--beige-clair);
+	border-radius: 5px;
+	border: 1px solid var(--vert-fonce);
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
