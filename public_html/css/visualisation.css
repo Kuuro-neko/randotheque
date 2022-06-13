@@ -65,3 +65,11 @@ fieldset {
 .succes {
 	color : green;
 }
+
+#map {
+    margin: 5px 5%;
+    width: 90%;
+    height: 65em;
+    z-index: 0;
+    border: 1px solid #CCC;
+}

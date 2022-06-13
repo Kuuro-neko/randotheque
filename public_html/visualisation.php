@@ -12,7 +12,11 @@ include 'php/deconnexion_utilisateur.php';
 
 <?php
 	include 'php/balise_head.php';
-	echo "<body>";
+?>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+	<body onload="initialize()">
+<?php
 	include 'php/head.php';
 
 	// récupérer les données du fichier_gpx dont l'id est passé via $_GET['id_gpx']
@@ -92,7 +96,16 @@ include 'php/deconnexion_utilisateur.php';
 				<textarea name="description" id="description" placeholder="Description" value="<?php echo $description; ?>"></textarea>
 			<!--</div>
 			<div class="element 6">-->
-				<input type="submit" name="import" value="Modifier">
+				<?php
+					if($owner_name == "Vous") {
+				?>
+				<div class="col">
+					<input type="submit" name="import" value="Modifier">
+				</div>
+				<?php
+					}
+				?>
+				
 			<!--</div>-->
 		</form>
 	</fieldset></div>
@@ -133,10 +146,54 @@ include 'php/deconnexion_utilisateur.php';
 			}
 		}
 	?>
+	<div id="map"></div>
+	<?php
+		function parse_waypoints($gpx_file) {
+			$xml = simplexml_load_file($gpx_file);
+			$waypoints = array();
+			foreach ($xml->trk->trkseg as $trkseg) {
+				foreach ($trkseg->trkpt as $wpt) {
+					$waypoints[] = array(
+						'lat' => (float) $wpt->attributes()->lat,
+						'lon' => (float) $wpt->attributes()->lon
+					);
+				}
+			}
+			return $waypoints;
+		}
 
-</body>
-
+		// Load gpx/test.gpx, xml file containing the waypoints of a GPX file
+		$gpx_file = "gpx/".$owner."_".$id_gpx.".gpx";
+		$waypoints = parse_waypoints($gpx_file);
+	?>
 <?php
 	include 'php/footer.php';
 ?>
+</body>
+
+
+<script type="text/javascript">
+    function initialize() {
+        var map = L.map('map').setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
+
+        var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        });
+
+		// Create a polyline from $waypoints
+		var polyline = L.polyline(<?php echo json_encode($waypoints); ?>, {
+			color: 'red',
+			weight: 5,
+			opacity: 1,
+			smoothFactor: 1
+		});
+
+		// Add the polyline to the map
+		polyline.addTo(map);
+
+
+        map.addLayer(osmLayer);
+    }
+</script>
 </html>
