@@ -3,4 +3,5 @@
     $db = "randotheque";
     $login = "root";
     $mdp = "";
+    // Modification test
 ?>
