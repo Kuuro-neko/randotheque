@@ -175,7 +175,7 @@ if(isset($_POST['modifier'])) {
 				</div>
 				<div class="col">
 					<label for="Sexe">Sexe :</label>
-					<input type="text" id="Sexe" name="Sexe" value="<?php
+					<input type="text" id="Sexe" name="Sexe" disabled="disabled" value="<?php
 						if($sexe == 'F') {
 							echo "Femme";
 						} else if ($sexe == 'M') {
