@@ -22,23 +22,33 @@
 
 #contenuProfil {
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	margin-bottom: 10px;
-	border : 0px;
+	/*margin-bottom: 10px;*/
+	/*border : 0px;*/
+	/*align-items : baseline;*/
 }
 
 #contenuProfil * {
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 
 .col {
+	/*background-color : red;*/
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
+}
+
+.col label {
+	margin-bottom : 10px;
+}
+
+.im {
+	background-color : var(--beige-clair);
+	border-radius: 5px;
 }
 
 .col img {
