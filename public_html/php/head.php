@@ -12,7 +12,7 @@
 				<input class="btMenu" type="button" onclick="location.href='acceuil.php';" value="Acceuil"/>
 				<input class="btMenu" type="button" onclick="location.href='recherche.php';" value="Recherche"/>
 				<input class="btMenu" type="button" onclick="location.href='import.php';" value="Importer"/>
-				<input class="btMenu" type="button" onclick="location.href='profil.php';" value="Mon profil"/>
+				<input class="btMenu" type="button" onclick="location.href='profil.php?id_util=<?php echo $_SESSION['id_util']; ?>';" value="Mon profil"/>
 				<input class="btMenu" type="button" onclick="location.href='chat.php';" value="Chat"/>
 				<input class="btMenu" type="button" onclick="location.href='apropos.php';" value="A propos"/>
 			</div>
