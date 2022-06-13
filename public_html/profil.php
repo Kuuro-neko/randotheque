@@ -213,9 +213,17 @@ if(isset($_POST['modifier'])) {
 			<p id="notfound">Aucune trace importée pour l'instant</p>
 			<?php
 				} else {
+					echo "<table>";
+					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Visualiser la trace</th></tr>";
 					foreach($fichierGpx as $gpx) {
-						echo "Id : ".$gpx['Id_Fichier_GPX']."<br>"."Description : ".$gpx['Description']."<br>"."Type de sport : ".$gpx['Type_de_sport']."<br>"."Difficulté : ".$gpx['Difficulte']."<br>"."Localisation : ".$gpx['Localisation']."<br>------------<br>";
+						
+						// Afficher la Description, le Type_de_sport, la Difficulté et la Localisation du $gpx dans les lignes du tableau
+						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>Lien vers la page to-do</td></tr>";
+						
+						
+						
 					}
+					echo "</table>";
 				}
 				?>
 		</div>
