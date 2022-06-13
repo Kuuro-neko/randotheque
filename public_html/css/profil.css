@@ -7,6 +7,7 @@
 	padding: 10px;
 	margin: 0 auto;
 	margin-bottom: 25px;
+	max-width: 80%;
 }
 
 .title {
@@ -22,9 +23,14 @@
 #contenuProfil {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-bottom: 10px;
 	border : 0px;
+}
+
+#contenuProfil * {
+	margin-top: 10px;
 }
 
 .col {
