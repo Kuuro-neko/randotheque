@@ -1,4 +1,7 @@
-
+a {
+	color: inherit;
+	text-decoration: none;
+}
 
 .enTete {
 	height: 20px;
@@ -12,6 +15,131 @@
 	z-index: 3;
 }
 
+.menu {
+	display: flex;
+	align-items: center;
+	width: auto;
+	height: 100%;
+	float: right;
+	margin-top: 10px;
+}
+
+
+
+.menu ul {
+	width: 100%;
+	height: inherit;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	font-weight: bold;
+	font-family: arial;     
+}
+.menu ul a {
+	width: 800px;
+	min-width: 800px;
+	color: var(--vert-fonce);
+	background-color: var(--beige);
+	border-radius : 5px;
+	border : 1px solid var(--beige);
+	color : var(--vert-fonce);
+	padding : 5px;
+	padding-top : 10px;
+	margin-left : 10px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+	font-size : 1.2em;
+	font-weight : bold;
+	border-radius: 10px;
+}
+.menu ul a:hover {
+	color: var(--beige-clair);
+	background-color: var(--vert-fonce);
+}
+#menuToggle {
+	display: none;
+}
+.menu-icon {
+	display: none;
+}
+
+.titre h1 {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+}
+
+@media only screen and (max-width: 1749px){
+	.titre h1 {
+		position:inherit;
+		left: 0%;
+	}
+}
+
+
+@media only screen and (max-width: 1499px){
+	.titre h1 {
+		left: 50%;
+	}
+
+	.menu {
+		width: 100%;
+		height: auto;
+	}
+	.menu ul {
+		display: flex;
+		align-items: flex-end;
+		flex-direction: column;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 1s;
+		transition: margin-top 0.3s;
+	}
+
+	.menu ul a {
+		width: 120px;
+		height: 35px;
+		color: var(--vert-fonce);
+		border-color: var(--vert-fonce);
+		border-width: 1px;
+		border-style: solid;
+		padding: 2% 3% 1%;
+		margin: 2px;
+	}
+
+	.menu ul li {
+		width: 100%;
+		display: flex;
+	}
+
+	.menu-icon {
+		margin: 15px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 0;
+		right: 0;
+		line-height: 60px;
+	}
+
+	#menuToggle ~ ul {
+		margin-top: 350px;
+	}
+
+	#menuToggle:checked ~ ul {
+		max-height: 1500px;
+		margin-top: 380px;
+	}
+
+	.menu-icon img {
+		margin:auto;
+	}
+}
+
 .image {
 
 	background-color: beige;
@@ -21,12 +149,11 @@
 
 .titreEtBoutons {
 		background-color : var(--vert-clair);
-		
 		display : flex;
 		flex-direction : row;
 		justify-content: space-between;
 		padding-right : 10px;
-		height: 70px;
+		height: 80px;
 }
 
 .titre {
@@ -47,9 +174,9 @@ h1 {
 }
 
 .btMenu, .btDeco {
-		background-color : var(--beige);
+		background-color : var(--vert-fonce);
 		border-radius : 5px;
-		border : 1px solid var(--beige);
+		border : 1px solid var(--vert-fonce);
 		color : var(--vert-fonce);
 		padding : 5px;
 		margin-left : 10px;
@@ -60,5 +187,5 @@ h1 {
 }
 .btMenu:hover, .btDeco:hover {
 		background-color : var(--vert-fonce);
-		color : var(--beige);
+		color : var(--vert-fonce);
 }
