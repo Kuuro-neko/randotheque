@@ -66,15 +66,16 @@ include 'php/deconnexion_utilisateur.php';
 		</div>
 	</div>
 	<?php
-		// Define parse_waypoints() function
 		function parse_waypoints($gpx_file) {
 			$xml = simplexml_load_file($gpx_file);
 			$waypoints = array();
-			foreach ($xml->trk->trkseg->trkpt as $wpt) {
-				$waypoints[] = array(
-					'lat' => (float) $wpt->attributes()->lat,
-					'lon' => (float) $wpt->attributes()->lon
-				);
+			foreach ($xml->trk->trkseg as $trkseg) {
+				foreach ($trkseg->trkpt as $wpt) {
+					$waypoints[] = array(
+						'lat' => (float) $wpt->attributes()->lat,
+						'lon' => (float) $wpt->attributes()->lon
+					);
+				}
 			}
 			return $waypoints;
 		}
