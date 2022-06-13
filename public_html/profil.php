@@ -106,7 +106,10 @@ $thisPage = "profil"; // Pour lier à la bonne feuille CSS
 
 	<fieldset class="main">
 		<legend class="title">Traces GPX de <?php echo $userName; ?></legend>
-		<p>Aucune trace importée pour l'instant :(</p>
+		<div id="tracks">
+			<img src="images/notfound.png" alt="Aucune trace trouvée" height="100">
+			<p id="notfound">Aucune trace importée pour l'instant</p>
+		</div>
 	</fieldset>
 </body>
 

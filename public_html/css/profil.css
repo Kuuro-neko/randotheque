@@ -41,3 +41,17 @@
 	border-radius: 50%;
 	border: var(--vert-fonce) solid 2px;
 }
+
+#tracks {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+#notfound {
+	color: var(--vert-fonce);
+	font-size: 1.5em;
+	margin-top: 10px;
+}
