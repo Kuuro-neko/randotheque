@@ -1,0 +1,67 @@
+.formulaire {
+		display : flex;
+		justify-content : center;
+		margin-top : 50px;
+		margin-bottom : 50px;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	background-color: var(--vert-clair);
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+fieldset {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
+}
+
+#formimport {
+    display: grid; 
+    grid-template-columns: 0.2fr 0.8fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    gap: 5px 0px; 
+    padding: 5px;
+}
+
+.element {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    width: 600px;
+    padding: 1em;
+}
+
+.element input {
+    width: 90%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+.element select {
+    width: 90%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+.message {
+	display : flex;
+	justify-content : center;
+}
+
+.error {
+	color : red;
+}
+
+.succes {
+	color : green;
+}
