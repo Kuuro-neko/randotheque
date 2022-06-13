@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 if(isset($_SESSION['nom_util'])){
     $text = $_POST['text'];
