@@ -13,7 +13,7 @@ if($data = $reqUsername->fetch()) {
 	$mail = $data['Mail'];
 	$poids = $data['Poids'];
 	$taille = $data['Taille'];
-	$dateN = $data['DateN'];
+	$dateN = date("Y-m-d", $data['DateN']);
 	$sexe = $data['Sexe'];
 } else {
 	header("Location: profil.php?id_util=".$_SESSION['id_util']."&err=null_profile");
@@ -98,13 +98,14 @@ if(isset($_POST['modifier'])) {
 	}
 	// Si le champ de modification de date de naissance est rempli
 	if(!empty($_POST['dateN'])) {
+		$newDate = strtotime($_POST['dateN']);
 		// Si la date de naissance est différente de la date de naissance actuelle
-		if($_POST['dateN'] != $dateN) {
+		if($newDate != $dateN) {
 			// Modifier la date de naissance dans la base de données
 			$reqDateN = $linkpdo->prepare('UPDATE utilisateur
 			SET DateN = :dateN
 			WHERE Id_Utilisateur = :id_util');
-			$reqDateN->execute(array('dateN'=>$_POST['dateN'], 'id_util'=>$_SESSION['id_util']));
+			$reqDateN->execute(array('dateN'=>$newDate, 'id_util'=>$_SESSION['id_util']));
 			$dateN = $_POST['dateN'];
 		}
 	}
@@ -170,7 +171,7 @@ if(isset($_POST['modifier'])) {
 				</div>
 				<div class="col">
 					<label for="dateN">Date de naissance :</label>
-					<input type="text" id="dateN" name="dateN" value="<?php echo $dateN; ?>"/>
+					<input type="date" id="dateN" name="dateN" value="<?php echo $dateN; ?>"/>
 				</div>
 				<div class="col">
 					<label for="Sexe">Sexe :</label>
@@ -213,15 +214,11 @@ if(isset($_POST['modifier'])) {
 			<p id="notfound">Aucune trace importée pour l'instant</p>
 			<?php
 				} else {
-					echo "<table>";
+					echo "<table class=\"gpx_table\">";
 					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Visualiser la trace</th></tr>";
 					foreach($fichierGpx as $gpx) {
-						
 						// Afficher la Description, le Type_de_sport, la Difficulté et la Localisation du $gpx dans les lignes du tableau
 						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>Lien vers la page to-do</td></tr>";
-						
-						
-						
 					}
 					echo "</table>";
 				}
