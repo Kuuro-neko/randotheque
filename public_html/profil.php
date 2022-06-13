@@ -163,11 +163,11 @@ if(isset($_POST['modifier'])) {
 				?>
 				<div class="col">
 					<label for="poids">Poids :</label>
-					<input type="text" id="poids" name="poids" value="<?php echo $poids; ?>"/>
+					<div><input type="text" style="padding-right:22px; text-align:right;" id="poids" name="poids" value="<?php echo $poids; ?>"/><span style="margin-left:-20px;color: rgb(100, 100, 100);">kg</span></div>
 				</div>
 				<div class="col">
 					<label for="taille">Taille :</label>
-					<input type="text" id="taille" name="taille" value="<?php echo $taille; ?>"/>
+					<div><input type="text" style="padding-right:22px; text-align:right;" id="taille" name="taille" value="<?php echo $taille; ?>"/><span style="margin-left:-20px;color: rgb(100, 100, 100);">cm</span></div>
 				</div>
 				<div class="col">
 					<label for="dateN">Date de naissance :</label>
