@@ -17,7 +17,7 @@ include 'php/deconnexion_utilisateur.php';
 
 	// récupérer les données du fichier_gpx dont l'id est passé via $_GET['id_gpx']
 	$id_gpx = $_GET['id_gpx'];
-	$sql = "SELECT * FROM fichier_gpx WHERE Id_Fichier_GPX = $id_gpx";
+	$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE Id_Fichier_GPX = $id_gpx AND fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur";
 	$result = $linkpdo->query($sql);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 	$id_gpx = $row['Id_Fichier_GPX'];
@@ -27,13 +27,21 @@ include 'php/deconnexion_utilisateur.php';
 	$description = $row['Description'];
 	$distance = $row['Distance'];
 	$owner = $row['Id_Utilisateur'];
+	$owner_name = $row['Nom_d_utilisateur'];
 
-
+	if($_SESSION['id_util'] == $owner) {
+		$disableEdit = "";
+		$owner_name = "Vous";
+	} else {
+		$disableEdit = "disabled=\"disabled\"";
+	}
 ?>
 	
 	<div class="formulaire"><fieldset id="import">
 		<legend class="title">Informations du fichier</legend>
 		<form id="formimport" class="element" action="import.php" method="post" enctype="multipart/form-data">
+				<label for="localisation">Propriétaire :</label>
+				<a href="profil.php<?php echo $owner; ?>"><?php echo $owner_name; ?></a> 
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
 					<option value="<?php echo $type_de_sport; ?>"><?php echo $type_de_sport; ?></option>
