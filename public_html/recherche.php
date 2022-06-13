@@ -97,10 +97,12 @@ include 'php/deconnexion_utilisateur.php';
 				$max = $_POST['max'];
 
 				// Requete en fonction des données de la recherche dans la table fichier_gpx de la base de données
-				$sql = "SELECT * FROM fichier_gpx WHERE (Description LIKE '%$recherche%' OR Localisation LIKE '%$recherche%') AND Type_de_sport LIKE '%$type_de_sport%' AND Distance BETWEEN $min AND $max";
-				$result = $linkpdo->query($sql);
-				$result->setFetchMode(PDO::FETCH_ASSOC);
-				$resultat = $result->fetchAll();
+				$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur AND (Description LIKE '%$recherche%' OR Localisation LIKE '%$recherche%') AND Type_de_sport LIKE '%$type_de_sport%' AND Distance BETWEEN $min AND $max";
+				if($result = $linkpdo->query($sql)) {
+					$result->setFetchMode(PDO::FETCH_ASSOC);
+					$resultat = $result->fetchAll();
+				}
+
 			}
 		?>
 		<div id="résultatRechercheTrace">
@@ -109,10 +111,10 @@ include 'php/deconnexion_utilisateur.php';
 				if(isset($resultat)){
 
 					echo "<table class=\"gpx_table\">";
-					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Distance</th><th>Visualiser la trace</th></tr>";
+					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Distance</th><th>Propriétaire</th><th>Visualiser la trace</th></tr>";
 					foreach($resultat as $gpx) {
 						// Afficher la Description, le Type_de_sport, la Difficulté et la Localisation du $gpx dans les lignes du tableau
-						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>".$gpx['Distance']." km</td><td><a href=\"visualisation.php?id_gpx=".$gpx['Id_Fichier_GPX']."\">Visualiser</a></td></tr>";
+						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>".round($gpx['Distance'], 2)." km</td><td><a href=\"profil.php?id_util=".$gpx['Id_Utilisateur']."\">".$gpx['Nom_d_utilisateur']."</a><td><a href=\"visualisation.php?id_gpx=".$gpx['Id_Fichier_GPX']."\">Visualiser</a></td></tr>";
 					}
 					echo "</table>";
 

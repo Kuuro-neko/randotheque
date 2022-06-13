@@ -1,0 +1,40 @@
+.page {
+	display : flex;
+	flex-direction : column;
+	flex-wrap : wrap;
+	justify-content : space-around;
+	align-items : center;
+}
+
+.titre {
+
+}
+
+.texte {
+		display : flex;
+		flex-wrap : wrap;
+		justify-content : space-around;
+}
+
+.case {
+	display : flex;
+	flex-direction : column;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
+	align-items : center;
+	width : 30%;
+	padding-right : 12px;
+		padding-left : 12px;
+}
+
+h5 {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	background-color: var(--vert-clair);
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+}
+
