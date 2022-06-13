@@ -8,13 +8,16 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 $reqUsername = $linkpdo->prepare('SELECT * FROM utilisateur
 WHERE Id_Utilisateur = :id_util');
 $reqUsername->execute(array('id_util'=>$_GET['id_util']));
-$data = $reqUsername->fetch();
-$userName = $data['Nom_d_utilisateur'];
-$mail = $data['Mail'];
-$poids = $data['Poids'];
-$taille = $data['Taille'];
-$dateN = $data['DateN'];
-$sexe = $data['Sexe'];
+if($data = $reqUsername->fetch()) {
+	$userName = $data['Nom_d_utilisateur'];
+	$mail = $data['Mail'];
+	$poids = $data['Poids'];
+	$taille = $data['Taille'];
+	$dateN = $data['DateN'];
+	$sexe = $data['Sexe'];
+} else {
+	header("Location: profil.php?id_util=".$_SESSION['id_util']."&err=null_profile");
+}
 
 if($_SESSION['id_util'] != $_GET['id_util']) {
 	$disableEdit = "disabled=\"disabled\"";
@@ -116,6 +119,12 @@ if(isset($_POST['modifier'])) {
 	include 'php/balise_head.php';
 	echo "<body>";
 	include 'php/head.php';
+
+	if(isset($_GET['err'])) {
+		if($_GET['err'] == "null_profile") {
+			echo "<p class=\"err\">Vous avez essayé d'accéder à un profil non existant, vous avez été redirigé vers votre profil</p>";
+		}
+	}
 ?>
 	<fieldset class="main">
 		<legend class="title">Profil de <?php echo $userName; ?></legend>
@@ -187,11 +196,28 @@ if(isset($_POST['modifier'])) {
 		</form>
 	</fieldset>
 
+	<?php
+		// Récupérer les fichier_gpx de l'utilisateur
+		$reqFichierGpx = $linkpdo->prepare('SELECT * FROM fichier_gpx WHERE Id_Utilisateur = :id_util');
+		$reqFichierGpx->execute(array('id_util'=>$_GET['id_util']));
+	?>
+
+
 	<fieldset class="main">
 		<legend class="title">Traces GPX de <?php echo $userName; ?></legend>
 		<div id="tracks">
+			<?php
+				if(!$fichierGpx = $reqFichierGpx->fetchAll()) {
+			?>
 			<img src="images/notfound.png" alt="Aucune trace trouvée" height="100">
 			<p id="notfound">Aucune trace importée pour l'instant</p>
+			<?php
+				} else {
+					foreach($fichierGpx as $gpx) {
+						echo "Id : ".$gpx['Id_Fichier_GPX']."<br>"."Description : ".$gpx['Description']."<br>"."Type de sport : ".$gpx['Type_de_sport']."<br>"."Difficulté : ".$gpx['Difficulte']."<br>"."Localisation : ".$gpx['Localisation']."<br>------------<br>";
+					}
+				}
+				?>
 		</div>
 	</fieldset>
 </body>
