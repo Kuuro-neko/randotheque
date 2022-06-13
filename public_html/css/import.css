@@ -1,3 +1,26 @@
+.formulaire {
+		display : flex;
+		justify-content : center;
+		margin-top : 50px;
+		margin-bottom : 50px;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	background-color: var(--vert-clair);
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+fieldset {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
+}
+
 #formimport {
     display: grid; 
     grid-template-columns: 0.2fr 0.8fr; 
@@ -6,29 +29,15 @@
     padding: 5px;
 }
 
-#import {
-    margin: 0 30%;
-}
-
-#formimport label {
-    font-size: 1.2em;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.import {
+.element {
     display: flex;
     justify-content: center;
     margin: 10px auto;
     width: 600px;
     padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
 }
 
-.import input {
+.element input {
     width: 90%;
     padding: .5em;
     border: 1px solid #CCC;
@@ -36,7 +45,7 @@
     margin-bottom: 1em;
 }
 
-.import select {
+.element select {
     width: 90%;
     padding: .5em;
     border: 1px solid #CCC;
@@ -44,13 +53,15 @@
     margin-bottom: 1em;
 }
 
-fieldset {
-    border: 0;
-    padding: 0;
+.message {
+	display : flex;
+	justify-content : center;
 }
 
-legend {
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: .5em;
+.error {
+	color : red;
+}
+
+.succes {
+	color : green;
 }
