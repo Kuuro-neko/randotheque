@@ -2,10 +2,55 @@
     display: grid; 
     grid-template-columns: 0.2fr 0.8fr; 
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
-    gap: 0px 0px; 
+    gap: 5px 0px; 
     padding: 5px;
 }
 
 #import {
-    margin: 0 10%;
+    margin: 0 30%;
+}
+
+#formimport label {
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.import {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    width: 600px;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+.import input {
+    width: 90%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+.import select {
+    width: 90%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: .5em;
 }
