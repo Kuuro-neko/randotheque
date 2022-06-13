@@ -28,7 +28,11 @@ include 'php/deconnexion_utilisateur.php';
 					// Si des mots-clef ont été saisis, on les affiche
 					if(isset($_POST['recherche'])){
 						$value = "value=\"".$_POST['recherche']."\"";
-						$placeholder = "";
+						if($_POST['recherche'] == ""){
+							$placeholder = "Saisissez des mots-clef";
+						} else {
+							$placeholder = "";
+						}
 					} else {
 						$value = "";
 						$placeholder = "Saisissez des mots-clef";
@@ -84,12 +88,12 @@ include 'php/deconnexion_utilisateur.php';
 					<label for="max">Distance maximum</label>
 					<input id="max" class="max" name="max" type="range" step="1" min="0" max="3000" value="<?php echo $max_distance; ?>">
 				</div>
-				<input type="submit" value="Rechercher">
+				<input type="submit" value="Rechercher" name="btRecherche">
 			</form>
 		</div>
 		<?php
 			// si le formulaire est rempli
-			if(isset($_POST['recherche'])){
+			if(isset($_POST['btRecherche'])){
 						// Récupération des données de la recherche
 				$recherche = $_POST['recherche'];
 				$type_de_sport = $_POST['type_de_sport'];
