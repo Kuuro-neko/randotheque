@@ -24,6 +24,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	margin-bottom: 10px;
+	border : 0px;
 }
 
 .col {
@@ -32,4 +33,11 @@
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
+}
+
+.col img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: var(--vert-fonce) solid 2px;
 }
