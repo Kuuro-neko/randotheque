@@ -98,9 +98,11 @@ include 'php/deconnexion_utilisateur.php';
 
 				// Requete en fonction des données de la recherche dans la table fichier_gpx de la base de données
 				$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur AND (Description LIKE '%$recherche%' OR Localisation LIKE '%$recherche%') AND Type_de_sport LIKE '%$type_de_sport%' AND Distance BETWEEN $min AND $max";
-				$result = $linkpdo->query($sql);
-				$result->setFetchMode(PDO::FETCH_ASSOC);
-				$resultat = $result->fetchAll();
+				if($result = $linkpdo->query($sql)) {
+					$result->setFetchMode(PDO::FETCH_ASSOC);
+					$resultat = $result->fetchAll();
+				}
+
 			}
 		?>
 		<div id="résultatRechercheTrace">
