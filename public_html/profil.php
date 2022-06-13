@@ -130,8 +130,9 @@ if(isset($_POST['modifier'])) {
 	<fieldset class="main">
 		<legend class="title">Profil de <?php echo $userName; ?></legend>
 		<form method="post" action="profil.php?id_util=<?php echo $_SESSION['id_util']; ?> ">
-			<fieldset id="contenuProfil" <?php echo $disableEdit; ?>>
-				<div class="col">
+			<!--<fieldset id="contenuProfil" <?php /*echo $disableEdit; */?>>-->
+			<div id="contenuProfil">
+				<div class="col im">
 				<?php 
 					if(file_exists("images/avatars/".$_GET['id_util'].".jpg")) {
 						echo "<img src=\"images/avatars/".$_GET['id_util'].".jpg\" alt=\"Avatar de ".$userName."\" height=\"100\">";
@@ -193,7 +194,8 @@ if(isset($_POST['modifier'])) {
 				<?php
 					}
 				?>
-			</fieldset>
+			<!--</fieldset>-->
+			</div>
 		</form>
 	</fieldset>
 
