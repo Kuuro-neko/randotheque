@@ -6,10 +6,8 @@
 	align-items : center;
 }
 
-.titre {
-	display: flex;
-	justify-content: center;
-	font-weight: bold;
+.page .titre {
+    margin: 0 auto;
 }
 
 .texte {

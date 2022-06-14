@@ -11,7 +11,7 @@ $msgErreurInscription = "";
 
 // Rediriger vers l'accueil authentifié si l'utilisateur est déjà connecté
 if(!empty($_SESSION['signedin'])) {
-	header("Location: acceuil.php");
+	header("Location: accueil.php");
 }
 
 // Si formulaire de connection rempli (les champs sont forcément remplis grâce au required du <form>)
@@ -26,7 +26,7 @@ if(isset($_POST['connection'])) {
 		$_SESSION['signedin'] = true;
 		$_SESSION['nom_util'] = $data['Nom_d_utilisateur'];
 		$_SESSION['id_util'] = $data['Id_Utilisateur'];
-		header("Location: acceuil.php");
+		header("Location: accueil.php");
 	} else {
 	// Sinon msgErreurConnection : mdp ou login erroné
 		$msgErreurConnect = "Login ou mot de passe erroné";

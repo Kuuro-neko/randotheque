@@ -12,7 +12,7 @@
 				<input type="checkbox" id="menuToggle">
 				<label for="menuToggle" class="menu-icon"><img src="./images/menu_icon.png" alt="Menu de navigation déroulant" height="60"></label>
 				<ul>
-					<li><a href="acceuil.php">Accueil</a>
+					<li><a href="accueil.php">Accueil</a>
 					</li>
 					<li><a href="recherche.php">Recherche</a>
 					</li>
@@ -24,7 +24,7 @@
 					</li>
 					<li><a href="apropos.php">À propos</a>
 					</li>
-					<li><a href="acceuil.php?disconnect=true">Déconnexion</a>
+					<li><a href="accueil.php?disconnect=true">Déconnexion</a>
 					</li>
 				</ul>
 			</nav>
