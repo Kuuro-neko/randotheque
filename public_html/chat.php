@@ -30,7 +30,7 @@ include 'php/head.php';
 			?>
 		</div>
 
-		<form name="createroom" action="creer_chat.php" method="get">
+		<form name="createroom" action="creer_chat.php">
 			<input name="createroom" type="submit"  id="createroom" value="Créer un nouveau groupe"/>
 		</form>
 	</div>
@@ -86,7 +86,7 @@ include 'php/head.php';
 		?>
 		" method="post">
 			<input name="message" type="text" id="usermsg" size="63" />
-			<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" />
+			<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" <?php if(!isset($_GET['id_conv'])) { echo 'disabled="disabled"'; } ?>/>
 			<button type="button" onClick="window.location.reload();">Rafraichir</button>
 		</form>
 		
