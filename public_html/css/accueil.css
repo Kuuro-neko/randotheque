@@ -3,3 +3,20 @@
 	flex-direction : column;
 	align-items : center;
 }
+
+.messageBienvenue img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	border: var(--vert-fonce) solid 2px;
+}
+
+#welcome {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	background-color: var(--vert-clair);
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+}
