@@ -45,7 +45,7 @@ include 'php/deconnexion_utilisateur.php';
 		<legend class="title">Informations du fichier</legend>
 		<form id="formimport" class="element" action="import.php" method="post" enctype="multipart/form-data">
 				<label for="localisation">Propriétaire :</label>
-				<a href="profil.php<?php echo $owner; ?>"><?php echo $owner_name; ?></a> 
+				<a href="profil.php?id_util=<?php echo $owner; ?>"><?php echo $owner_name; ?></a> 
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
 					<option value="<?php echo $type_de_sport; ?>"><?php echo $type_de_sport; ?></option>
