@@ -21,11 +21,7 @@ include 'php/deconnexion_utilisateur.php';
 		<div class="texte">
 			<div class="case 1">
 				<h5>Nous</h5>
-				<p>Nous sommes trois étudiants en DUT informatique année spéciale à l'IUT de Paul Sabatier - Toulouse :<br/>
-				Gilles Gonzales Oropeza<br/>
-				Shayne Clicheroux
-				Victor Cazal<br/>
-				Nous adressons une petite pensée à Lucie Gouzé qui nous a quitté en cours de projet.</p>
+				<p>Je ne sais pas quoi dire ici</p>
 			</div>
 			<div class="case 2">
 				<h5>Le client</h5>
