@@ -9,6 +9,7 @@ include 'php/deconnexion_utilisateur.php';
 <html lang="fr">
 
 <?php
+require 'php/connect_db.php'; // Connexion à la base de données
 include 'php/balise_head.php';
 echo "<body>";
 include 'php/head.php';
@@ -42,7 +43,23 @@ include 'php/head.php';
 
 		<div id="chatbox">
 			<?php
-
+				if(isset($_GET['id_conv'])) {
+					// Récurérer les messages et les informations des utilisateurs de la conversation dans les tables conversation et message et utilisateur
+					$id_conv = $_GET['id_conv'];
+					$sql = "SELECT * FROM conversation, message, utilisateur
+					WHERE conversation.Id_Conversation = :id_conv AND conversation.Id_Conversation = message.Id_Conversation AND message.Id_Utilisateur = utilisateur.Id_Utilisateur
+					ORDER BY message.Date_heure ASC";
+					$req = $linkpdo->prepare($sql);
+					$req->execute(array(':id_conv' => $id_conv));
+					$result = $req->fetchAll();
+					foreach ($result as $row) {
+						echo "<div class='message'>";
+						echo "<p class='user'>".$row['Nom_Utilisateur']."</p>";
+						echo "<p class='time'>".$row['Date_heure']."</p>";
+						echo "<p class='msg'>".$row['Texte_Message']."</p>";
+						echo "</div>";
+					}
+				}
 			?>
 		</div>
 

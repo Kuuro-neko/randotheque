@@ -11,16 +11,19 @@ form, p, span {
   
 input { font:12px arial; }
   
-a {
+#exit {
     color:#ff2f00;
     text-decoration:none; }
-  
-    a:hover { text-decoration:underline; }
+
+#exit:hover {
+    font-weight: bold;
+transition: all 0.5s ease;
+}
 
 #main {
     display: flex;
     flex-direction: row;
-    margin: 0 5%;
+    margin: 1% 5%;
 }
 
 #wrapper, #chat_rooms {
