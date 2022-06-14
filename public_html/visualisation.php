@@ -166,6 +166,74 @@ include 'php/deconnexion_utilisateur.php';
 		$gpx_file = "gpx/".$owner."_".$id_gpx.".gpx";
 		$waypoints = parse_waypoints($gpx_file);
 	?>
+
+	<fieldset id="interact_comments">
+		<legend class="title">Commentaires</legend>
+		<form id="interact" action="visualisation.php?id_gpx=<?php echo $id_gpx; ?>" method="post">
+			<div class="element 1">
+				<label for="note">Note :</label>
+				<input type="range" name="note" id="note" min="0" max="5" value="0" step="0.5" oninput="this.nextElementSibling.value = this.value"/><output>0</output>
+			</div>
+			<div class="element tarea">
+				<label for="commentaire">Commentaire :</label>
+				<textarea name="commentaire" id="commentaire" placeholder="Commentaire"></textarea>
+			</div>
+			<div class="element 3">
+				<input type="submit" name="comment" value="Commenter">
+			</div>
+		</form>
+		<?php 
+			// Récupérer le contenu du formulaire et insérer les données dans la table interagir avec Id_Utilisateur = $_SESSION['id_util'] et Id_GPX = $id_gpx
+			if(isset($_POST["comment"])) {
+				$req=$linkpdo->prepare("INSERT INTO interagir (Id_Utilisateur, Id_Fichier_GPX, Note, Commentaire) VALUES (:id_utilisateur, :id_gpx, :note, :commentaire)");
+				$req->execute(array(
+					':id_utilisateur' => $_SESSION['id_util'],
+					':id_gpx' => $_GET['id_gpx'],
+					':note' => $_POST['note'],
+					':commentaire' => $_POST['commentaire']
+				));
+			}
+		?>
+
+		<div id="separator"></div>
+
+
+		<div id="comments">	
+		<?php
+			$req=$linkpdo->prepare("SELECT * FROM fichier_gpx, interagir, utilisateur WHERE fichier_gpx.Id_Fichier_GPX = :id_gpx AND fichier_gpx.Id_Fichier_GPX = interagir.Id_Fichier_GPX AND interagir.Id_Utilisateur = utilisateur.Id_Utilisateur");
+			$req->bindValue(':id_gpx', $id_gpx, PDO::PARAM_INT);
+			$req->execute();
+			$interaction = $req->fetchAll();
+			foreach($interaction as $inter) {
+				?>
+				<div class="comment">
+					<div class="comment_header">
+						<div class="comment_header_left">
+							<?php 
+								if(file_exists("images/avatars/".$inter['Id_Utilisateur'].".jpg")) {
+									echo "<img src=\"images/avatars/".$inter['Id_Utilisateur'].".jpg\" alt=\"Avatar de ".$inter['Nom_d_utilisateur']."\" height=\"60\">";
+								} else {
+									echo "<img src=\"images/avatars/default.jpg\" alt=\"Avatar de ".$inter['Nom_d_utilisateur']."\" height=\"100\">";
+								}
+							 ?>
+						</div>
+						<div class="comment_header_right">
+							<p class="comment_author"><?php echo $inter['Nom_d_utilisateur']; ?></p>
+							<p class="comment_note">Note : <?php echo $inter['Note']; ?> / 5</p>
+						</div>
+					</div>
+					<div class="comment_content">
+						<p class="comment_text"><?php echo $inter['Commentaire']; ?></p>
+					</div>
+				</div>
+				<?php
+			}
+		?>
+		</div>
+	</fieldset>
+
+
+
 <?php
 	include 'php/footer.php';
 ?>
