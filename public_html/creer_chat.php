@@ -24,7 +24,7 @@ include 'php/head.php';
 			<label for="nom_chat">Nom du groupe de chat :</label>
 			<input type="text" name="nom_chat" id="nom_chat" placeholder="Randonnée entre potes ce week-end"/>
 			<label for="liste_util">Liste des utilisateurs à ajouter au groupe :</label>
-			<textarea name="liste_util" id="liste_util" placeholder="Saisissez des noms des autres utilisateurs à ajouter séparés d'un espace" style="resize: none;" required></textarea>
+			<textarea name="liste_util" id="liste_util" placeholder="Saisissez des noms des autres utilisateurs à ajouter séparés d'une virgule" style="resize: none;" required></textarea>
 			<input type="submit" name="creer_chat" id="creer_chat" value="Créer" />
 		</form>
 		<?php
@@ -39,7 +39,7 @@ include 'php/head.php';
 				}
 				$liste_util = $_POST['liste_util'];
 				// Vérification que les utilisateurs saisis existent bien
-				$liste_util = explode(" ", $liste_util);
+				$liste_util = explode(",", $liste_util);
 				$liste_util = array_map('trim', $liste_util);
 				$liste_util = array_map('strtolower', $liste_util);
 				$liste_util = array_map('ucfirst', $liste_util);
@@ -62,7 +62,7 @@ include 'php/head.php';
 					$sql = "INSERT INTO conversation (Libelle) VALUES (:libelle)";
 					$req = $linkpdo->prepare($sql);
 					$req->execute(array('libelle' => $nom_chat));
-					$id_chat = $linkpdo->lastInsertId();
+					$id_conv = $linkpdo->lastInsertId();
 					
 					// On ajoute les utilisateurs au chat
 					$sql = "INSERT INTO participer (Id_Utilisateur, Id_Conversation) VALUES (:id_util, :id_conv)";
@@ -70,19 +70,21 @@ include 'php/head.php';
 					// D'abord l'utilisateur connecté
 					$req->execute(array(
 						'id_util' => $_SESSION['id_util'],
-						'id_conv' => $id_chat
+						'id_conv' => $id_conv
 					));
 					// Puis ceux saisis
 					foreach($liste_util as $util) {
 						$req->execute(array(
 							'id_util' => $util,
-							'id_conv' => $id_chat
+							'id_conv' => $id_conv
 						));
 					}
 					echo "<p class='success'>Le chat a bien été créé !</p>";
+					// Rediriger vers la page du chat
+					Header("Location: chat.php?id_conv=".$id_conv);
 				} else {
-					echo "<p class='error'>Une ou plusieurs des utilisateurs saisis n'existe(nt) pas !</p>";
-					echo "<p class='error'>Vérifiez que vous n'avez pas oublié de mettre un espace entre chaque nom d'utilisateur.</p>";
+					echo "<p class='error'>Un ou plusieurs des utilisateurs saisis n'existe(nt) pas !</p>";
+					echo "<p class='error'>Vérifiez de plus que vous n'avez pas oublié de mettre une virgule entre chaque nom d'utilisateur.</p>";
 					echo "<p class='error'>Votre saisie : \"".$_POST['liste_util']."\"</p>";
 				}
 			}

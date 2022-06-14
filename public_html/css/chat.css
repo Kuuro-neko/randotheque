@@ -116,3 +116,7 @@ padding: 10px;
 #creer_chat {
     margin: 10px;
 }
+
+#roombox {
+    overflow-y: scroll;
+}

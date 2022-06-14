@@ -26,7 +26,19 @@ include 'php/head.php';
 
 		<div id="roombox">
 			<?php
-
+				// On récupère les groupes de chat de l'utilisateur
+				$sql = "SELECT * FROM participer, conversation WHERE participer.Id_Utilisateur = :util AND participer.Id_Conversation = conversation.Id_Conversation";
+				$req = $linkpdo->prepare($sql);
+				$req->execute(array('util' => $_SESSION['id_util']));
+				while($resultat = $req->fetch()) {
+					echo "<p class='chat_room_title'><a href=\"chat.php?id_conv=".$resultat['Id_Conversation']."&conv_name=".$resultat['Libelle']."\">".$resultat['Libelle']."</a></p>";
+					// Récupérer le nombre d'utilisateurs dans le groupe
+					$sql2 = "SELECT count(Id_Utilisateur) as Nb_Util FROM participer WHERE Id_Conversation = :conv";
+					$req2 = $linkpdo->prepare($sql2);
+					$req2->execute(array('conv' => $resultat['Id_Conversation']));
+					$resultat2 = $req2->fetch();
+					echo "<p class='chat_room_nb_util'> avec ".$resultat2['Nb_Util']." utilisateurs</p></br>";
+				}
 			?>
 		</div>
 
@@ -37,7 +49,13 @@ include 'php/head.php';
 
 	<div id="wrapper">
 		<div id="menu">
-			<p class="welcome">Bienvenue, <b><?php echo $_SESSION['nom_util']; ?></b></p>
+			<p class="welcome">Bienvenue, <b><?php echo $_SESSION['nom_util']; ?></b>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+					echo " dans le groupe de chat <b>".$_GET['conv_name']."</b>";
+				}
+			?>
+			</p>
 			<p class="logout"><a id="exit" href="#">Quitter le groupe de chat</a></p>
 			<div style="clear:both"></div>
 		</div>
