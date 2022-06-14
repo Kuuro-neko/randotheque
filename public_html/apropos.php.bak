@@ -29,7 +29,7 @@ include 'php/deconnexion_utilisateur.php';
 			</div>
 			<div class="case 2">
 				<h5>Le client</h5>
-				<p>Monsieur BELTRAN Thierry, enseignant chercheur au sein de l’IUT Paul Sabatier de Toulouse, est un grand amateur de sport en tout genre. Comme beaucoup de sportifs, par le biais d’outils GPS (Aujourd’hui intégrés dans tous les smartphones et les montres connectées), il génère de nombreuses traces GPS sous format de fichier.gpx. Sont besoins aujourd’hui et de posséder un outils, ou plutôt une bibliothèque lui permettant la gestion et le partage de ces nombreuses traces GPS.</p>
+				<p>Enseignant chercheur au département informatique de l'IUT paul Sabatier - Toulouse, Thierry Beltrang est aussi un grand amateur de sport tel que la andonné, le trail, la course à pied, le vélo ou encore la natation.</p>
 			</div>
 			<div class="case 3">
 				<h5>Le projet</h5>
