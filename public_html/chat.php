@@ -9,7 +9,8 @@ include 'php/deconnexion_utilisateur.php';
 <html lang="fr">
 
 <?php
-require 'php/connect_db.php'; // Connexion à la base de données
+require 'php/config.php';
+require 'php/connexiondb.php'; // Connexion à la base de données
 include 'php/balise_head.php';
 echo "<body>";
 include 'php/head.php';
@@ -43,6 +44,20 @@ include 'php/head.php';
 
 		<div id="chatbox">
 			<?php
+				// Si un message a été envoyé, on le met dans la base de données avant de récupérer tous les messages !
+				if(isset($_POST['submitmsg'])) {
+					$date = strtotime("now");
+					$sql = "INSERT INTO message (Id_utilisateur, Id_Conversation, Date_heure, Contenu) VALUES (:id_util, :id_conv, :date, :contenu)";
+					$req = $linkpdo->prepare($sql);
+					$req->execute(array(
+						'id_util' => $_SESSION['id_util'],
+						'id_conv' => $_GET['id_conv'],
+						'date' => $date,
+						'contenu' => $_POST['message']
+					));
+				}
+
+				// Si on a ouvert un groupe de chat
 				if(isset($_GET['id_conv'])) {
 					// Récurérer les messages et les informations des utilisateurs de la conversation dans les tables conversation et message et utilisateur
 					$id_conv = $_GET['id_conv'];
@@ -63,8 +78,14 @@ include 'php/head.php';
 			?>
 		</div>
 
-		<form name="message" action="">
-			<input name="usermsg" type="text" id="usermsg" size="63" />
+		<form name="message" action="chat.php
+		<?php 
+			if(isset($_GET['id_conv'])) {
+				echo "?id_conv=".$_GET['id_conv'];
+			}
+		?>
+		" method="post">
+			<input name="message" type="text" id="usermsg" size="63" />
 			<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" />
 			<button type="button" onClick="window.location.reload();">Rafraichir</button>
 		</form>
