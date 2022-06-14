@@ -21,7 +21,18 @@ fieldset {
 	box-shadow: 0 0 2px #000;
 }
 
-#formimport {
+.note_moyenne {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+label {
+    text-decoration: bold;
+    color : var(--vert-fonce);
+}
+
+#formedit {
     display: grid; 
     grid-template-columns: 0.2fr 0.8fr; 
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
@@ -68,8 +79,124 @@ fieldset {
 
 #map {
     margin: 5px 5%;
-    width: 90%;
-    height: 65em;
+    width: 80%;
+    margin: 0 10%;
+    height: 62em;
     z-index: 0;
     border: 1px solid #CCC;
+    border-radius: 1em;
+    box-shadow: 0 0 2px #000;
+}
+
+#interact_comments {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px auto;
+    width: 80%;
+    padding: 1em;
+}
+
+#interact {
+
+        display: grid; 
+        grid-template-columns: 0.5fr 2fr 0.5fr; 
+        grid-template-rows: 1fr; 
+        gap: 0px 0px; 
+        grid-template-areas: 
+          ". . ."; 
+        margin: 0 10%;
+
+}
+
+#separator {
+    border-bottom: 1px solid #CCC;
+    margin: 0 3% 15px 3%;
+}
+
+.element textarea {
+    width: 90%;
+    padding: .5em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+
+.element.tarea {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    width: 600px;
+    padding: 1em;
+}
+
+#interact .element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    width: 80%;
+    padding: 1em;
+}
+
+#comments {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    margin: 0 5%;
+    padding: 1em;
+}
+
+.comment {
+    display: flex;
+    flex-direction: row;
+    height: 90px;
+    margin-bottom: 25px;
+}
+
+
+.comment_header {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    width: 250px;
+    height: 90px;
+    border-right: 1px solid #CCC;
+}
+
+.comment_header_left img {
+    height: 90px;
+	border-radius: 50%;
+	border: var(--vert-fonce) solid 2px;
+}
+
+.comment_header_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+.comment_author {
+    font-weight: bold;
+    font-size: 1.2em;
+    color : var(--vert-fonce);
+}
+
+.comment_note {
+    font-size: 1em;
+    color : var(--vert-fonce);
+}
+
+.comment_text {
+    font-size: 1em;
+    width: fit-content;
+}
+
+.comment_content {
+    width: 1049px;
+    overflow-y: scroll;
 }
