@@ -71,3 +71,36 @@ transition: all 0.5s ease;
 .logout { float:right; }
   
 .msgln { margin:0 0 2px 0; }
+
+
+
+#formulaire {
+    display : flex;
+    justify-content : center;
+    margin: 50px 25%;
+}
+
+legend {
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+background-color: var(--vert-clair);
+border-radius: 10px;
+padding: 5px;
+font-weight: bold;
+}
+
+fieldset {
+background-color: #fff;
+border-radius: 5px;
+box-shadow: 0 0 2px #000;
+width: 100%;
+}
+
+#formimport {
+display: grid; 
+grid-template-columns: 0.2fr 0.8fr; 
+grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+gap: 5px 0px; 
+padding: 5px;
+}

@@ -22,7 +22,11 @@ include 'php/head.php';
 <fieldset class="main">
 		<legend class="title">Créer un groupe de chat</legend>
 		<form id="formcreerchat" method="post" action="creer_chat.php" method="post">
-			
+			<label for="nom_chat">Nom du groupe de chat :</label>
+			<input type="text" name="nom_chat" id="nom_chat" /></br>
+			<label for="liste_util">Liste des utilisateurs :</label>
+			<textarea name="liste_util" id="liste_util" rows="10" cols="50"></textarea></br>
+			<input type="submit" name="creer_chat" id="creer_chat" value="Créer" />
 		</form>
 	</fieldset>
 </div>
