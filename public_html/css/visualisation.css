@@ -21,7 +21,18 @@ fieldset {
 	box-shadow: 0 0 2px #000;
 }
 
-#formimport {
+.note_moyenne {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+label {
+    text-decoration: bold;
+    color : var(--vert-fonce);
+}
+
+#formedit {
     display: grid; 
     grid-template-columns: 0.2fr 0.8fr; 
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 

@@ -24,7 +24,7 @@ include 'php/deconnexion_utilisateur.php';
 	$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE Id_Fichier_GPX = :id_gpx AND fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur";
 	$req = $linkpdo->prepare($sql);
 	$req->execute(array('id_gpx'=>$id_gpx));
-	if($row = $req->fetch()) {
+	if($row = $req->fetch()) { // Si le fichier_gpx existe, alors on affiche la page, sinon message d'erreur juste avant le footer
 	$type_de_sport = $row['Type_de_sport'];
 	$localisation = $row['Localisation'];
 	$difficulte = $row['Difficulte'];
@@ -47,11 +47,18 @@ include 'php/deconnexion_utilisateur.php';
 	}
 ?>
 	
-	<div class="formulaire"><fieldset id="import">
+	<div class="formulaire">
+		<fieldset id="edit">
 		<legend class="title">Informations du fichier</legend>
-		<form id="formimport" class="element" action="import.php" method="post" enctype="multipart/form-data">
+		<form id="formedit" class="element" action="visualisation.php?id_gpx=<?php echo $id_gpx; ?>" method="post">
+			<div class="propriétaire">
 				<label for="localisation">Propriétaire :</label>
-				<a href="profil.php?id_util=<?php echo $owner; ?>"><?php echo $owner_name; ?></a> 
+					<a href="profil.php?id_util=<?php echo $owner; ?>"><?php echo $owner_name; ?></a> 
+					</div>
+				<div class="note_moyenne">
+					<label for="note_moyenne">Note moyenne :&nbsp;</label>
+					<?php echo $note_moyenne; ?> / 5
+				</div>
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
 					<option value="<?php echo $type_de_sport; ?>"><?php echo $type_de_sport; ?></option>
@@ -99,14 +106,23 @@ include 'php/deconnexion_utilisateur.php';
 			<!--</div>
 			<div class="element 5">-->
 				<label for="description">Description :</label>
-				<textarea name="description" id="description" placeholder="Description" value="<?php echo $description; ?>"></textarea>
+				<textarea name="description" id="description" 
+				<?php 
+					if($description == "Non renseigné" || $description == "") {
+						echo "placeholder=\"Description\">";
+					} else {
+						?>><?php
+						echo $description;
+					}
+				?>
+				</textarea>
 			<!--</div>
 			<div class="element 6">-->
 				<?php
 					if($owner_name == "Vous") {
 				?>
 				<div class="col">
-					<input type="submit" name="import" value="Modifier">
+					<input type="submit" name="edit" value="Modifier">
 				</div>
 				<?php
 					}
@@ -116,7 +132,7 @@ include 'php/deconnexion_utilisateur.php';
 		</form>
 	</fieldset></div>
 	<?php
-		if(isset($_POST["import"])) {
+		if(isset($_POST["edit"])) {
 			// Insérer les données du fichier gpx dans la table fichier_gpx de la base de données
 			$type_de_sport = $_POST['type_de_sport'];
 			$localisation = $_POST['localisation'];
@@ -138,13 +154,15 @@ include 'php/deconnexion_utilisateur.php';
 			$id_utilisateur = $_SESSION['id_util'];
 
 			$req=$linkpdo->prepare("INSERT INTO fichier_gpx (Id_Utilisateur, Type_de_sport, Localisation, Difficulte, Description) VALUES (:id_utilisateur, :type_de_sport, :localisation, :difficulte, :description)");
-			$req->bindValue(':id_utilisateur', $id_utilisateur, PDO::PARAM_STR);
-			$req->bindValue(':type_de_sport', $type_de_sport, PDO::PARAM_STR);
-			$req->bindValue(':localisation', $localisation, PDO::PARAM_STR);
-			$req->bindValue(':difficulte', $difficulte, PDO::PARAM_INT);
-			$req->bindValue(':description', $description, PDO::PARAM_STR);
-			
-			if($req->execute()) {
+
+
+			if($req->execute(array(
+				'id_utilisateur' => $id_utilisateur,
+				'type_de_sport' => $type_de_sport,
+				'localisation' => $localisation,
+				'difficulte' => $difficulte,
+				'description' => $description
+			))) {
 				echo "<p class=\"success\">Le fichier a été modifié avec succès !</p>";
 			} else {
 				echo "<div class=\"message\"><p class=\"error\">Une erreur de communication avec la base de données est survenue<br/>";
@@ -173,19 +191,50 @@ include 'php/deconnexion_utilisateur.php';
 		$waypoints = parse_waypoints($gpx_file);
 	?>
 
+		<?php
+			
+			// Vérifier si le fichier_gpx a déjà un commentaire pour l'utilisateur connecté
+			$req=$linkpdo->prepare("SELECT * FROM interagir WHERE Id_Utilisateur = :id_util AND Id_Fichier_GPX = :id_gpx");
+			$req->execute(array('id_util' => $_SESSION['id_util'],'id_gpx' => $id_gpx));
+			if ($donnees = $req->fetch()) {
+				if($donnees['Commentaire'] != "") {
+					$comment = $donnees['Commentaire'];
+					$alreadyCommented = true;
+				} else {
+					$comment = "";
+					$alreadyCommented = false;
+				}
+				$note = $donnees['Note'];
+			} else {
+				$alreadyCommented = false;
+				$note = 2.5;
+				$comment = "";
+			}
+		?>
+
+
 	<fieldset id="interact_comments">
 		<legend class="title">Commentaires</legend>
 		<form id="interact" action="visualisation.php?id_gpx=<?php echo $id_gpx; ?>" method="post">
 			<div class="element 1">
 				<label for="note">Note :</label>
-				<input type="range" name="note" id="note" min="0" max="5" value="0" step="0.5" oninput="this.nextElementSibling.value = this.value"/><output>0</output>
+				<input type="range" name="note" id="note" min="0" max="5" value="<?php echo $note; ?>" step="0.5" oninput="this.nextElementSibling.value = this.value"/><output><?php echo $note; ?></output>
 			</div>
 			<div class="element tarea">
-				<label for="commentaire">Commentaire :</label>
-				<textarea name="commentaire" id="commentaire" placeholder="Commentaire"></textarea>
+				<label for="commentaire">Votre commentaire :</label>
+				<textarea name="commentaire" id="commentaire" 
+				<?php 
+					if($alreadyCommented) {
+						?>><?php
+						echo $comment;
+					} else {
+						echo "placeholder=\"Commentaire\">";
+					}
+				?>
+			</textarea>
 			</div>
 			<div class="element 3">
-				<input type="submit" name="comment" value="Commenter">
+				<input type="submit" name="comment" value="<?php echo ($alreadyCommented) ? "Modifier" : "Commenter"; ?>">
 			</div>
 		</form>
 		<?php 
@@ -202,7 +251,6 @@ include 'php/deconnexion_utilisateur.php';
 		?>
 
 		<div id="separator"></div>
-
 
 		<div id="comments">	
 		<?php
