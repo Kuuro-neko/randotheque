@@ -242,7 +242,7 @@ include 'php/deconnexion_utilisateur.php';
 
 <script type="text/javascript">
     function initialize() {
-        var map = L.map('map').setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
+        var map = L.map('map', {gestureHandling: true}).setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
 
         var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
             attribution: '© OpenStreetMap contributors',

@@ -68,10 +68,13 @@ fieldset {
 
 #map {
     margin: 5px 5%;
-    width: 90%;
-    height: 65em;
+    width: 80%;
+    margin: 0 10%;
+    height: 62em;
     z-index: 0;
     border: 1px solid #CCC;
+    border-radius: 1em;
+    box-shadow: 0 0 2px #000;
 }
 
 #interact_comments {
@@ -180,4 +183,9 @@ fieldset {
 .comment_text {
     font-size: 1em;
     width: fit-content;
+}
+
+.comment_content {
+    width: 1049px;
+    overflow-y: scroll;
 }
