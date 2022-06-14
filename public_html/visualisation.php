@@ -36,8 +36,14 @@ include 'php/deconnexion_utilisateur.php';
 	$sql = "SELECT AVG(Note) AS Note_moyenne FROM interagir WHERE Id_Fichier_GPX = :id_gpx";
 	$result = $linkpdo->prepare($sql);
 	$result->execute(array(':id_gpx' => $id_gpx));
-	$row = $result->fetch(PDO::FETCH_ASSOC);
-	$note_moyenne = $row['Note_moyenne'];
+	if($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$note_moyenne = $row['Note_moyenne'];
+	}
+	if($note_moyenne == null) {
+		$note_moyenne = "Aucune note";
+	} else {
+		$note_moyenne = $note_moyenne . "/5";
+	}
 
 	if($_SESSION['id_util'] == $owner) {
 		$disableEdit = "";
@@ -57,7 +63,7 @@ include 'php/deconnexion_utilisateur.php';
 					</div>
 				<div class="note_moyenne">
 					<label for="note_moyenne">Note moyenne :&nbsp;</label>
-					<?php echo $note_moyenne; ?> / 5
+					<?php echo $note_moyenne; ?>
 				</div>
 				<label for="type_de_sport">Type de sport :</label>
 				<select type="text" name="type_de_sport" id="type_de_sport">
