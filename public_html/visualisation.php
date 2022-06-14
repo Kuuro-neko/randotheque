@@ -21,10 +21,10 @@ include 'php/deconnexion_utilisateur.php';
 
 	// récupérer les données du fichier_gpx dont l'id est passé via $_GET['id_gpx']
 	$id_gpx = $_GET['id_gpx'];
-	$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE Id_Fichier_GPX = $id_gpx AND fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur";
-	$result = $linkpdo->query($sql);
-	$row = $result->fetch(PDO::FETCH_ASSOC);
-	$id_gpx = $row['Id_Fichier_GPX'];
+	$sql = "SELECT * FROM fichier_gpx, utilisateur WHERE Id_Fichier_GPX = :id_gpx AND fichier_gpx.Id_Utilisateur = utilisateur.Id_Utilisateur";
+	$req = $linkpdo->prepare($sql);
+	$req->execute(array('id_gpx'=>$id_gpx));
+	if($row = $req->fetch()) {
 	$type_de_sport = $row['Type_de_sport'];
 	$localisation = $row['Localisation'];
 	$difficulte = $row['Difficulte'];
@@ -32,6 +32,12 @@ include 'php/deconnexion_utilisateur.php';
 	$distance = $row['Distance'];
 	$owner = $row['Id_Utilisateur'];
 	$owner_name = $row['Nom_d_utilisateur'];
+
+	$sql = "SELECT AVG(Note) AS Note_moyenne FROM interagir WHERE Id_Fichier_GPX = :id_gpx";
+	$result = $linkpdo->prepare($sql);
+	$result->execute(array(':id_gpx' => $id_gpx));
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+	$note_moyenne = $row['Note_moyenne'];
 
 	if($_SESSION['id_util'] == $owner) {
 		$disableEdit = "";
@@ -235,6 +241,9 @@ include 'php/deconnexion_utilisateur.php';
 
 
 <?php
+	} else {
+		echo "<div class=\"message\"><p class=\"error\">Fichier GPX Inexistant</p></div>";
+	}
 	include 'php/footer.php';
 ?>
 </body>
