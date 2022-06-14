@@ -92,12 +92,8 @@ include 'php/deconnexion_utilisateur.php';
 					<option value="Fauteuil roulant">Fauteuil roulant</option>
 					<option value="Other">Autre</option>
 				</select>
-			<!--</div>
-			<div class="element 3">-->
 				<label for="localisation">Localisation :</label>
 				<input type="text" name="localisation" id="localisation" value="<?php echo $localisation; ?>" /> 
-			<!--</div>
-			<div class="element 4">-->
 				<label for="difficulte">Difficulté :</label>
 				<select name="difficulte" id="difficulte">
 					<option value="<?php echo $difficulte; ?>"><?php echo $difficulte; ?></option>
@@ -109,8 +105,6 @@ include 'php/deconnexion_utilisateur.php';
 					<option value="4">4</option>
 					<option value="5">5</option>
 				</select>
-			<!--</div>
-			<div class="element 5">-->
 				<label for="description">Description :</label>
 				<textarea name="description" id="description" 
 				<?php 
@@ -122,8 +116,6 @@ include 'php/deconnexion_utilisateur.php';
 					}
 				?>
 				</textarea>
-			<!--</div>
-			<div class="element 6">-->
 				<?php
 					if($owner_name == "Vous") {
 				?>
@@ -133,8 +125,6 @@ include 'php/deconnexion_utilisateur.php';
 				<?php
 					}
 				?>
-				
-			<!--</div>-->
 		</form>
 	</fieldset></div>
 	<?php
@@ -160,8 +150,6 @@ include 'php/deconnexion_utilisateur.php';
 			$id_utilisateur = $_SESSION['id_util'];
 
 			$req=$linkpdo->prepare("INSERT INTO fichier_gpx (Id_Utilisateur, Type_de_sport, Localisation, Difficulte, Description) VALUES (:id_utilisateur, :type_de_sport, :localisation, :difficulte, :description)");
-
-
 			if($req->execute(array(
 				'id_utilisateur' => $id_utilisateur,
 				'type_de_sport' => $type_de_sport,
@@ -198,8 +186,7 @@ include 'php/deconnexion_utilisateur.php';
 	?>
 
 		<?php
-			
-			// Vérifier si le fichier_gpx a déjà un commentaire pour l'utilisateur connecté
+			// Vérifier si le fichier_gpx a déjà un commentaire pour l'utilisateur connecté et assigner les vlaeurs à des variables
 			$req=$linkpdo->prepare("SELECT * FROM interagir WHERE Id_Utilisateur = :id_util AND Id_Fichier_GPX = :id_gpx");
 			$req->execute(array('id_util' => $_SESSION['id_util'],'id_gpx' => $id_gpx));
 			if ($donnees = $req->fetch()) {
@@ -217,7 +204,6 @@ include 'php/deconnexion_utilisateur.php';
 				$comment = "";
 			}
 		?>
-
 
 	<fieldset id="interact_comments">
 		<legend class="title">Commentaires</legend>
@@ -291,9 +277,6 @@ include 'php/deconnexion_utilisateur.php';
 		?>
 		</div>
 	</fieldset>
-
-
-
 <?php
 	} else {
 		echo "<div class=\"message\"><p class=\"error\">Fichier GPX Inexistant</p></div>";
@@ -301,7 +284,6 @@ include 'php/deconnexion_utilisateur.php';
 	include 'php/footer.php';
 ?>
 </body>
-
 
 <script type="text/javascript">
     function initialize() {
