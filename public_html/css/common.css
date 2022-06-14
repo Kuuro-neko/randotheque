@@ -30,3 +30,7 @@ td a:hover {
     font-weight: bold;
 }
    
+
+.success {
+    color: green;
+}

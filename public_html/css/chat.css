@@ -24,6 +24,7 @@ transition: all 0.5s ease;
     display: flex;
     flex-direction: row;
     margin: 1% 5%;
+    height: fit-content;
 }
 
 #wrapper, #chat_rooms {
@@ -95,12 +96,23 @@ background-color: #fff;
 border-radius: 5px;
 box-shadow: 0 0 2px #000;
 width: 100%;
+height: 18em;
 }
 
-#formimport {
+#formcreerchat {
 display: grid; 
 grid-template-columns: 0.2fr 0.8fr; 
 grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
 gap: 5px 0px; 
-padding: 5px;
+padding: 10px;
+}
+
+#formcreerchat * {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#creer_chat {
+    margin: 10px;
 }

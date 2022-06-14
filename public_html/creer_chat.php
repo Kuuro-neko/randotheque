@@ -17,17 +17,81 @@ echo "<body>";
 include 'php/head.php';
 ?>
 
-<p>Chat avec d'autres utilisateurs</p> <!-- miaou -->
 <div id="formulaire">
 <fieldset class="main">
 		<legend class="title">Créer un groupe de chat</legend>
-		<form id="formcreerchat" method="post" action="creer_chat.php" method="post">
+		<form id="formcreerchat" method="post" action="creer_chat.php">
 			<label for="nom_chat">Nom du groupe de chat :</label>
-			<input type="text" name="nom_chat" id="nom_chat" /></br>
-			<label for="liste_util">Liste des utilisateurs :</label>
-			<textarea name="liste_util" id="liste_util" rows="10" cols="50"></textarea></br>
+			<input type="text" name="nom_chat" id="nom_chat" placeholder="Randonnée entre potes ce week-end"/>
+			<label for="liste_util">Liste des utilisateurs à ajouter au groupe :</label>
+			<textarea name="liste_util" id="liste_util" placeholder="Saisissez des noms des autres utilisateurs à ajouter séparés d'un espace" style="resize: none;" required></textarea>
 			<input type="submit" name="creer_chat" id="creer_chat" value="Créer" />
 		</form>
+		<?php
+			// Si le formulaire est rempli
+			if(isset($_POST['creer_chat'])) {
+				// On récupère les données du formulaire
+				$nom_chat = "Chat de ".$_SESSION['nom_util'];
+				if(isset($_POST['nom_chat'])) {
+					if($_POST['nom_chat'] != "") {
+						$nom_chat = $_POST['nom_chat'];
+					}
+				}
+				$liste_util = $_POST['liste_util'];
+				// Vérification que les utilisateurs saisis existent bien
+				$liste_util = explode(" ", $liste_util);
+				$liste_util = array_map('trim', $liste_util);
+				$liste_util = array_map('strtolower', $liste_util);
+				$liste_util = array_map('ucfirst', $liste_util);
+				$sql = "SELECT Id_Utilisateur FROM utilisateur WHERE Nom_d_utilisateur = :util";
+				foreach($liste_util as $util) {
+					if($util != "" && $util != " ") {
+						$req = $linkpdo->prepare($sql);
+						$req->execute(array('util' => $util));
+						$utilisateur_inconnu = false;
+						if($resultat = $req->fetch()) {
+							$liste_util[$util] = $resultat['Id_Utilisateur'];
+						} else {
+							$utilisateur_inconnu = true;
+							break;
+						}
+					}
+				}
+				if(!$utilisateur_inconnu) {
+					// On crée le chat
+					$sql = "INSERT INTO conversation (Libelle) VALUES (:libelle)";
+					$req = $linkpdo->prepare($sql);
+					$req->execute(array('libelle' => $nom_chat));
+					$id_chat = $linkpdo->lastInsertId();
+					
+					// On ajoute les utilisateurs au chat
+					$sql = "INSERT INTO participer (Id_Utilisateur, Id_Conversation) VALUES (:id_util, :id_conv)";
+					$req = $linkpdo->prepare($sql);
+					// D'abord l'utilisateur connecté
+					$req->execute(array(
+						'id_util' => $_SESSION['id_util'],
+						'id_conv' => $id_chat
+					));
+					// Puis ceux saisis
+					foreach($liste_util as $util) {
+						$req->execute(array(
+							'id_util' => $util,
+							'id_conv' => $id_chat
+						));
+					}
+					echo "<p class='success'>Le chat a bien été créé !</p>";
+				} else {
+					echo "<p class='error'>Une ou plusieurs des utilisateurs saisis n'existe(nt) pas !</p>";
+					echo "<p class='error'>Vérifiez que vous n'avez pas oublié de mettre un espace entre chaque nom d'utilisateur.</p>";
+					echo "<p class='error'>Votre saisie : \"".$_POST['liste_util']."\"</p>";
+				}
+			}
+
+				
+
+
+
+		?>
 	</fieldset>
 </div>
 
