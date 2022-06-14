@@ -12,35 +12,49 @@ form, p, span {
 input { font:12px arial; }
   
 a {
-    color:#0000FF;
+    color:#ff2f00;
     text-decoration:none; }
   
     a:hover { text-decoration:underline; }
-  
-#wrapper, #loginform {
-    margin:0 auto;
+
+#main {
+    display: flex;
+    flex-direction: row;
+    margin: 0 5%;
+}
+
+#wrapper, #chat_rooms {
     padding-bottom:25px;
     background:#EBF4FB;
-    width:504px;
-    border:1px solid #ACD8F0; }
+    width:60%;
+    border:1px solid #ACD8F0;
+    margin:0 10px 0 auto; }
+
+#wrapper {
+    margin-left: 5%;
+}
+
+#chat_rooms {
+    width:38%;
+    border-left:1px solid #ACD8F0;
+    padding-left:10px; }
   
-#loginform { padding-top:18px; }
-  
-    #loginform p { margin: 5px; }
-  
-#chatbox {
+#chatbox, #roombox {
     text-align:left;
     margin:0 auto;
     margin-bottom:25px;
     padding:10px;
     background:#fff;
-    height:270px;
-    width:430px;
+    height:40em;
+    width:85%;
     border:1px solid #ACD8F0;
     overflow:auto; }
+
+    
   
 #usermsg {
-    width:395px;
+    width:65%;
+    margin : 0 auto 0 20%;
     border:1px solid #ACD8F0; }
   
 #submit { width: 60px; }
