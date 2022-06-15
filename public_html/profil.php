@@ -150,7 +150,7 @@ if(isset($_POST['modifier'])) {
 				</div>
 				<div class="col">
 					<label for="username">Nom d'utilisateur :</label>
-					<input type="text" id="username" name="username" value="<?php echo $userName; ?>"/>
+					<input type="text" id="username" name="username" value="<?php echo $userName; ?>" disabled="disabled"/>
 				</div>
 				<?php
 				if($_SESSION['id_util'] == $_GET['id_util']) {
