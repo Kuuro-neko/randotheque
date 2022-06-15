@@ -174,7 +174,7 @@ if(isset($_POST['modifier'])) {
 				</div>
 				<div class="col">
 					<label for="dateN">Date de naissance :</label>
-					<input type="date" id="dateN" name="dateN" value="<?php echo $dateN; ?>"/>
+					<input type="date" id="dateN" name="dateN" value="<?php echo $dateN; ?>" disabled="disabled" />
 				</div>
 				<div class="col">
 					<label for="Sexe">Sexe :</label>
