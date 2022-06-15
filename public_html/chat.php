@@ -14,6 +14,15 @@ require 'php/connexiondb.php'; // Connexion à la base de données
 include 'php/balise_head.php';
 echo "<body>";
 include 'php/head.php';
+
+if(isset($_POST['quit'])) {
+	$id_conv = $_POST['id_conv'];
+	$sql = "DELETE FROM participer WHERE Id_Conversation = :id_conv AND Id_Utilisateur = :id_util";
+	$req = $linkpdo->prepare($sql);
+	$req->execute(array('id_conv' => $id_conv, 'id_util' => $_SESSION['id_util']));
+
+	header('Location: chat.php');
+}
 ?>
 
 <p>Chat avec d'autres utilisateurs</p> <!-- miaou -->
@@ -56,7 +65,16 @@ include 'php/head.php';
 				}
 			?>
 			</p>
-			<p class="logout"><a id="exit" href="#">Quitter le groupe de chat</a></p>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+			?>
+				<form name="quit" method="post" action="chat.php">
+					<input type="submit" id="exit" Onclick="confirmGroupQuit()" value="Quitter le groupe de chat" name="quit">
+					<input type="hidden" name="id_conv" value="<?php echo $_GET['id_conv']; ?>">
+				</form>
+			<?php
+				}
+			?>
 			<div style="clear:both"></div>
 		</div>
 
@@ -112,6 +130,13 @@ include 'php/head.php';
 </div>
 
 </body>
+
+<script>
+function confirmGroupQuit() {
+  let text = "Voulez vous vraiment quitter ce groupe de chat ?";
+  return(confirm(text));
+}
+</script>
 
 <?php
 include 'php/footer.php';

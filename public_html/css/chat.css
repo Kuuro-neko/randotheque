@@ -13,11 +13,11 @@ input { font:12px arial; }
   
 #exit {
     color:#ff2f00;
-    text-decoration:none; }
+    text-decoration:none;
+float:right; }
 
 #exit:hover {
     font-weight: bold;
-transition: all 0.5s ease;
 }
 
 #main {
@@ -29,9 +29,10 @@ transition: all 0.5s ease;
 
 #wrapper, #chat_rooms {
     padding-bottom:25px;
-    background:#EBF4FB;
+    background-color: var(--beige-clair);
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
     width:60%;
-    border:1px solid #ACD8F0;
     margin:0 10px 0 auto; }
 
 #wrapper {
@@ -51,7 +52,7 @@ transition: all 0.5s ease;
     background:#fff;
     height:40em;
     width:85%;
-    border:1px solid #ACD8F0;
+    box-shadow: 0 0 2px #000;
     overflow:auto; }
 
     
@@ -59,7 +60,7 @@ transition: all 0.5s ease;
 #usermsg {
     width:65%;
     margin : 0 auto 0 20%;
-    border:1px solid #ACD8F0; }
+    border:1px solid var(--beige); }
   
 #submit { width: 60px; }
   
