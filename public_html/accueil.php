@@ -33,6 +33,12 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 			echo "<script>alert('Votre image doit être un jpg');</script>";
 		}
 	}
+	
+	// Récupérer les fichier_gpx de l'utilisateur
+	$reqFichierGpx = $linkpdo->prepare('SELECT count(Id_Fichier_GPX) FROM fichier_gpx WHERE Id_Utilisateur = :id_util');
+	$reqFichierGpx->execute(array('id_util'=>$_SESSION['id_util']));
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -42,6 +48,7 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 	echo "<body>";
 	include 'php/head.php';
 	
+	//Bienvenue
 	echo "<div class=\"messageBienvenue\">";
 		if(file_exists("images/avatars/".$_SESSION['id_util'].".jpg")) {
 			echo "<img src=\"images/avatars/".$_SESSION['id_util'].".jpg\" alt=\"Avatar de ".$userName."\" height=\"100\">";
@@ -51,9 +58,17 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 		<p id="welcome">Bienvenue sur Randothèque, <?php echo $_SESSION['nom_util'];?></p>
 	</div>
 	
-</body>
-
+	<!--Statistique nb trace-->
+	<div class="nbTrace">
+		<p>Vous possédez 
+		<?php while($data = $reqFichierGpx->fetch()) {
+			echo $data[0];
+		}?> traces, détails sur votre <a href="profil.php">profil</a></p>
+	</div>
+	
 <?php
 	include 'php/footer.php';
 ?>
+</body>
+
 </html>

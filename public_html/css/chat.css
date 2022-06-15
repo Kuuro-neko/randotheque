@@ -11,37 +11,56 @@ form, p, span {
   
 input { font:12px arial; }
   
-a {
-    color:#0000FF;
-    text-decoration:none; }
-  
-    a:hover { text-decoration:underline; }
-  
-#wrapper, #loginform {
-    margin:0 auto;
+#exit {
+    color:#ff2f00;
+    text-decoration:none;
+float:right; }
+
+#exit:hover {
+    font-weight: bold;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    margin: 1% 5%;
+    height: fit-content;
+}
+
+#wrapper, #chat_rooms {
     padding-bottom:25px;
-    background:#EBF4FB;
-    width:504px;
-    border:1px solid #ACD8F0; }
+    background-color: var(--beige-clair);
+	border-radius: 5px;
+	box-shadow: 0 0 2px #000;
+    width:60%;
+    margin:0 10px 0 auto; }
+
+#wrapper {
+    margin-left: 5%;
+}
+
+#chat_rooms {
+    width:38%;
+    border-left:1px solid #ACD8F0;
+    padding-left:10px; }
   
-#loginform { padding-top:18px; }
-  
-    #loginform p { margin: 5px; }
-  
-#chatbox {
+#chatbox, #roombox {
     text-align:left;
     margin:0 auto;
     margin-bottom:25px;
     padding:10px;
     background:#fff;
-    height:270px;
-    width:430px;
-    border:1px solid #ACD8F0;
+    height:40em;
+    width:85%;
+    box-shadow: 0 0 2px #000;
     overflow:auto; }
+
+    
   
 #usermsg {
-    width:395px;
-    border:1px solid #ACD8F0; }
+    width:65%;
+    margin : 0 auto 0 20%;
+    border:1px solid var(--beige); }
   
 #submit { width: 60px; }
   
@@ -54,3 +73,71 @@ a {
 .logout { float:right; }
   
 .msgln { margin:0 0 2px 0; }
+
+
+
+#formulaire {
+    display : flex;
+    justify-content : center;
+    margin: 50px 25%;
+}
+
+legend {
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+background-color: var(--vert-clair);
+border-radius: 10px;
+padding: 5px;
+font-weight: bold;
+}
+
+fieldset {
+background-color: #fff;
+border-radius: 5px;
+box-shadow: 0 0 2px #000;
+width: 100%;
+height: 18em;
+}
+
+#formcreerchat {
+display: grid; 
+grid-template-columns: 0.2fr 0.8fr; 
+grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+gap: 5px 0px; 
+padding: 10px;
+}
+
+#formcreerchat * {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#creer_chat {
+    margin: 10px;
+}
+
+#roombox, #chatbox {
+    overflow-y: scroll;
+}
+
+#chatbox {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+strong {
+    font-weight: bold;
+    color: var(--vert-fonce);
+}
+
+.otherutil {
+    text-decoration: none;
+    color: var(--vert-fonce);
+}
+
+.otherutil:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}

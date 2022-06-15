@@ -1,5 +1,6 @@
 <?php
 session_start();
+setlocale(LC_TIME, 'fr_FR.utf8','fra');
 $thisPageTitle = "Randothèque - Chat"; // Titre de l'onglet
 $thisPage = "chat"; // Pour lier à la bonne feuille CSS
 
@@ -7,99 +8,148 @@ include 'php/deconnexion_utilisateur.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<title>Chat - Customer Module</title>
-	<link type="chat/css" rel="stylesheet" href="chat.css" />
-</head>
 
 <?php
+require 'php/config.php';
+require 'php/connexiondb.php'; // Connexion à la base de données
 include 'php/balise_head.php';
 echo "<body>";
 include 'php/head.php';
+
+if(isset($_POST['quit'])) {
+	$id_conv = $_POST['id_conv'];
+	$sql = "DELETE FROM participer WHERE Id_Conversation = :id_conv AND Id_Utilisateur = :id_util";
+	$req = $linkpdo->prepare($sql);
+	$req->execute(array('id_conv' => $id_conv, 'id_util' => $_SESSION['id_util']));
+
+	header('Location: chat.php');
+}
 ?>
 
 <p>Chat avec d'autres utilisateurs</p> <!-- miaou -->
-<div id="wrapper">
-	<div id="menu">
-		<p class="welcome">Bienvenue, <b><?php echo $_SESSION['nom_util']; ?></b></p>
-		<p class="logout"><a id="exit" href="#">Quitter le chat</a></p>
-		<div style="clear:both"></div>
+<div id="main">
+	<div id="chat_rooms">
+		<div id="menu">
+			<p class="welcome">Vos groupes de chat</b></p>
+			<div style="clear:both"></div>
+		</div>
+
+		<div id="roombox">
+			<?php
+				// On récupère les groupes de chat de l'utilisateur
+				$sql = "SELECT * FROM participer, conversation WHERE participer.Id_Utilisateur = :util AND participer.Id_Conversation = conversation.Id_Conversation";
+				$req = $linkpdo->prepare($sql);
+				$req->execute(array('util' => $_SESSION['id_util']));
+				while($resultat = $req->fetch()) {
+					echo "<p class='chat_room_title'><a href=\"chat.php?id_conv=".$resultat['Id_Conversation']."&conv_name=".$resultat['Libelle']."\">".$resultat['Libelle']."</a></p>";
+					// Récupérer le nombre d'utilisateurs dans le groupe
+					$sql2 = "SELECT count(Id_Utilisateur) as Nb_Util FROM participer WHERE Id_Conversation = :conv";
+					$req2 = $linkpdo->prepare($sql2);
+					$req2->execute(array('conv' => $resultat['Id_Conversation']));
+					$resultat2 = $req2->fetch();
+					echo "<p class='chat_room_nb_util'> avec ".$resultat2['Nb_Util']." utilisateurs</p></br>";
+				}
+			?>
+		</div>
+		<form name="createroom" action="creer_chat.php">
+			<input name="createroom" type="submit"  id="createroom" value="Créer un nouveau groupe"/>
+		</form>
 	</div>
 
-	<div id="chatbox">
-		<?php
-		if(file_exists("log.html") && filesize("log.html") > 0){
-			$handle = fopen("log.html", "r");
-			$contents = fread($handle, filesize("log.html"));
-			fclose($handle);
+	<div id="wrapper">
+		<div id="menu">
+			<p class="welcome">Bienvenue, <b><?php echo $_SESSION['nom_util']; ?></b>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+					echo " dans le groupe de chat <b>".$_GET['conv_name']."</b>";
+				}
+			?>
+			</p>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+			?>
+				<form name="quit" method="post" action="chat.php">
+					<input type="submit" id="exit" Onclick="confirmGroupQuit()" value="Quitter le groupe de chat" name="quit">
+					<input type="hidden" name="id_conv" value="<?php echo $_GET['id_conv']; ?>">
+				</form>
+			<?php
+				}
+			?>
+			<div style="clear:both"></div>
+		</div>
 
-			echo $contents;
-		}
-		
+		<div id="chatbox">
+			<?php
+				// Si un message a été envoyé, on le met dans la base de données avant de récupérer tous les messages !
+				if(isset($_POST['submitmsg'])) {
+					$date = strtotime("now");
+					$sql = "INSERT INTO message (Id_utilisateur, Id_Conversation, Date_heure, Contenu) VALUES (:id_util, :id_conv, :date, :contenu)";
+					$req = $linkpdo->prepare($sql);
+					$req->execute(array(
+						'id_util' => $_SESSION['id_util'],
+						'id_conv' => $_GET['id_conv'],
+						'date' => $date,
+						'contenu' => $_POST['message']
+					));
+					print_r($req->errorInfo());
+				}
+
+				// Si on a ouvert un groupe de chat
+				if(isset($_GET['id_conv'])) {
+					// Récurérer les messages et les informations des utilisateurs de la conversation dans les tables conversation et message et utilisateur
+					$id_conv = $_GET['id_conv'];
+					$sql = "SELECT * FROM conversation, message, utilisateur
+					WHERE conversation.Id_Conversation = :id_conv AND conversation.Id_Conversation = message.Id_Conversation AND message.Id_Utilisateur = utilisateur.Id_Utilisateur
+					ORDER BY message.Date_heure DESC";
+					$req = $linkpdo->prepare($sql);
+					$req->execute(array(':id_conv' => $id_conv));
+					$result = $req->fetchAll();
+					foreach ($result as $row) {
+						echo "<div class='message'>";
+						echo "<p class='msg'>".date("H:i",$row['Date_heure']);
+						if($row['Id_Utilisateur'] == $_SESSION['id_util']) {
+							echo " <strong>".$row['Nom_d_utilisateur']."</strong>";
+						}
+						else {
+							echo " <a class=\"otherutil\" href=\"profil.php?id_util=".$row['Id_Utilisateur']."\">".$row['Nom_d_utilisateur']."</a>";
+						}
+						echo " : ".$row['Contenu']."</p>";
+						echo "</div>";
+					}
+				}
+			?>
+		</div>
+
+		<form name="message" action="chat.php
+		<?php 
+			if(isset($_GET['id_conv'])) {
+				echo "?id_conv=".$_GET['id_conv']."&conv_name=".$_GET['conv_name'];
+			}
 		?>
+		" method="post">
+			<input name="message" type="text" id="usermsg" size="63" />
+			<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" <?php if(!isset($_GET['id_conv'])) { echo 'disabled="disabled"'; } ?>/>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+					?>
+					<button onclick="window.location.href='/chat.php?id_conv=<?php echo $_GET['id_conv']?>'">Rafraichir</button>
+					<?php 
+				}
+			?>
+			
+		</form>
+		
 	</div>
-
-	<form name="message" action="">
-		<input name="usermsg" type="text" id="usermsg" size="63" />
-		<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" />
-	</form>
 </div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-<script type="text/javascript">
-// jQuery Document
-$(document).ready(function()
-{
-	//If user wants to end session
-	$("#exit").click(function(){
-		var exit = confirm("Voulez vous vraiment quitter le chat?");
-		if(exit==true){window.location = 'index.php?logout=true';}		
-	});
-
-
-	//If user submits the form
-	$("#submitmsg").click(function(){	
-		var clientmsg = $("#usermsg").val();
-		$.post("post.php", {text: clientmsg});				
-		$("#usermsg").attr("value", "");
-		return false;
-	});
-
-	//Load the file containing the chat log
-	function loadLog(){		
-
-		$.ajax({
-			url: "log.html",
-			cache: false,
-			success: function(html){		
-				$("#chatbox").html(html); //Insert chat log into the #chatbox div				
-		  	},
-		});
-	}
-
-	//Load the file containing the chat log
-	function loadLog(){		
-		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
-		$.ajax({
-			url: "log.html",
-			cache: false,
-			success: function(html){		
-				$("#chatbox").html(html); //Insert chat log into the #chatbox div	
-				
-				//Auto-scroll			
-				var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height after the request
-				if(newscrollHeight > oldscrollHeight){
-					$("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
-				}				
-		  	},
-		});
-
-	}
-	setInterval (loadLog, 2500);
-
-});
-</script>
 
 </body>
+
+<script>
+function confirmGroupQuit() {
+  let text = "Voulez vous vraiment quitter ce groupe de chat ?";
+  return(confirm(text));
+}
+</script>
 
 <?php
 include 'php/footer.php';
