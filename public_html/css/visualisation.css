@@ -253,3 +253,17 @@ select#conversation {
     margin: 0 3% 15px 3%;
     width: 90%;
 }
+
+a .comment_author {
+    color: var(--vert-fonce);
+    text-decoration: none;
+}
+
+a .comment_author:hover {
+    color: var(--vert-clair);
+    text-decoration: none;
+}
+
+.comment_header_right a {
+    text-decoration: none;
+}

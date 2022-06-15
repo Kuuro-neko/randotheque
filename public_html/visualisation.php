@@ -333,7 +333,7 @@ if(isset($_POST['download'])) {
 							 ?>
 						</div>
 						<div class="comment_header_right">
-							<p class="comment_author"><?php echo $inter['Nom_d_utilisateur']; ?></p>
+							<a href="profil.php?id_util=<?php echo $inter['Id_Utilisateur'] ?>"><p class="comment_author"><?php echo $inter['Nom_d_utilisateur']; ?></p></a>
 							<p class="comment_note">Note : <?php echo $inter['Note']; ?> / 5</p>
 						</div>
 					</div>
