@@ -71,7 +71,44 @@ if(isset($_POST['download'])) {
 		$disableEdit = "disabled=\"disabled\"";
 	}
 ?>
-	
+	<?php
+		if(isset($_POST["edit"])) {
+			// Insérer les données du fichier gpx dans la table fichier_gpx de la base de données
+			$type_de_sport = $_POST['type_de_sport'];
+			$localisation = $_POST['localisation'];
+			$description = $_POST['description'];
+			if($localisation == "") {
+				$localisation = "Non renseigné";
+			}
+			if($description == "") {
+				$description = "Non renseigné";
+			}
+			if($type_de_sport == "") {
+				$type_de_sport = "Non renseigné";
+			}
+			if(!empty($_POST['difficulte'])) {
+				$difficulte = $_POST['difficulte'];
+			} else {
+				$difficulte = "NULL";
+			}
+			$id_utilisateur = $_SESSION['id_util'];
+
+			$req=$linkpdo->prepare("UPDATE fichier_gpx set Id_Utilisateur=:id_utilisateur, Type_de_sport=:type_de_sport, Localisation=:localisation, Difficulte=:difficulte, Description=:description where Id_Fichier_GPX=:Id_Fichier_GPX");
+            if($req->execute(array(
+                'id_utilisateur' => $id_utilisateur,
+                'type_de_sport' => $type_de_sport,
+                'localisation' => $localisation,
+                'difficulte' => $difficulte,
+                'description' => $description,
+                'Id_Fichier_GPX' => $id_gpx
+			))) {
+				echo "<p class=\"success\">Le fichier a été modifié avec succès !</p>";
+			} else {
+				echo "<div class=\"message\"><p class=\"error\">Une erreur de communication avec la base de données est survenue<br/>";
+				var_dump($linkpdo->errorInfo()); echo "</p></div>";
+			}
+		}
+	?>
 	<div class="formulaire">
 		<fieldset id="edit">
 		<legend class="title">Informations du fichier</legend>
@@ -197,43 +234,7 @@ if(isset($_POST['download'])) {
 		</form>
 	</fieldset>
 </div>
-	<?php
-		if(isset($_POST["edit"])) {
-			// Insérer les données du fichier gpx dans la table fichier_gpx de la base de données
-			$type_de_sport = $_POST['type_de_sport'];
-			$localisation = $_POST['localisation'];
-			$description = $_POST['description'];
-			if($localisation == "") {
-				$localisation = "Non renseigné";
-			}
-			if($description == "") {
-				$description = "Non renseigné";
-			}
-			if($type_de_sport == "") {
-				$type_de_sport = "Non renseigné";
-			}
-			if(!empty($_POST['difficulte'])) {
-				$difficulte = $_POST['difficulte'];
-			} else {
-				$difficulte = "NULL";
-			}
-			$id_utilisateur = $_SESSION['id_util'];
-
-			$req=$linkpdo->prepare("INSERT INTO fichier_gpx (Id_Utilisateur, Type_de_sport, Localisation, Difficulte, Description) VALUES (:id_utilisateur, :type_de_sport, :localisation, :difficulte, :description)");
-			if($req->execute(array(
-				'id_utilisateur' => $id_utilisateur,
-				'type_de_sport' => $type_de_sport,
-				'localisation' => $localisation,
-				'difficulte' => $difficulte,
-				'description' => $description
-			))) {
-				echo "<p class=\"success\">Le fichier a été modifié avec succès !</p>";
-			} else {
-				echo "<div class=\"message\"><p class=\"error\">Une erreur de communication avec la base de données est survenue<br/>";
-				var_dump($linkpdo->errorInfo()); echo "</p></div>";
-			}
-		}
-	?>
+	
 	<div id="map"></div>
 	<?php
 		function parse_waypoints($gpx_file) {
