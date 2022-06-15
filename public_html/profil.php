@@ -220,7 +220,7 @@ if(isset($_POST['modifier'])) {
 					echo "<tr><th>Description</th><th>Type de sport</th><th>Difficulté</th><th>Localisation</th><th>Distance</th><th>Visualiser la trace</th></tr>";
 					foreach($fichierGpx as $gpx) {
 						// Afficher la Description, le Type_de_sport, la Difficulté et la Localisation du $gpx dans les lignes du tableau
-						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>".$gpx['Distance']." km</td><td><a href=\"visualisation.php?id_gpx=".$gpx['Id_Fichier_GPX']."\">Visualiser</a></td></tr>";
+						echo "<tr><td>".$gpx['Description']."</td><td>".$gpx['Type_de_sport']."</td><td>".$gpx['Difficulte']."</td><td>".$gpx['Localisation']."</td><td>".round($gpx['Distance'], 2)." km</td><td><a href=\"visualisation.php?id_gpx=".$gpx['Id_Fichier_GPX']."\">Visualiser</a></td></tr>";
 					}
 					echo "</table>";
 				}

@@ -84,9 +84,9 @@ include 'php/deconnexion_utilisateur.php';
 						}
 					?>
 					<label for="min">Distance minimum</label>
-					<input id="min" class="min" name="min" type="range" step="1" min="0" max="3000" value="<?php echo $min_distance; ?>">
+					<input id="min" class="min" name="min" type="range" step="1" min="0" max="500" value="<?php echo $min_distance; ?>">
 					<label for="max">Distance maximum</label>
-					<input id="max" class="max" name="max" type="range" step="1" min="0" max="3000" value="<?php echo $max_distance; ?>">
+					<input id="max" class="max" name="max" type="range" step="1" min="0" max="500" value="<?php echo $max_distance; ?>">
 				</div>
 				<input type="submit" value="Rechercher" name="btRecherche">
 			</form>
