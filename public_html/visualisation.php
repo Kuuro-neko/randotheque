@@ -202,7 +202,7 @@ if(isset($_POST['download'])) {
 				echo "</div>";
 				echo "<input type=\"submit\" name=\"share\" value=\"Partager dans un groupe de chat\">";
 			} else {
-				echo "<p class=\"error conversation\">Vous n'etes présents dans aucun groupe de chat.</p>";
+				echo "<label class=\"error conversation\"> &nbsp;Vous n'etes présents dans aucun groupe de chat.</label>";
 				echo "</div>";
 			}
 		?>
