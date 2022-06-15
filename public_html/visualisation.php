@@ -15,6 +15,8 @@ include 'php/deconnexion_utilisateur.php';
 ?>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 	<body onload="initialize()">
 <?php
 	include 'php/head.php';
@@ -287,7 +289,7 @@ include 'php/deconnexion_utilisateur.php';
 
 <script type="text/javascript">
     function initialize() {
-        var map = L.map('map', {gestureHandling: true}).setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
+        var map = L.map('map', {fullscreenControl: true}).setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
 
         var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
             attribution: '© OpenStreetMap contributors',
@@ -304,7 +306,7 @@ include 'php/deconnexion_utilisateur.php';
 
 		// Add the polyline to the map
 		polyline.addTo(map);
-
+		
 
         map.addLayer(osmLayer);
     }
