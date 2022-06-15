@@ -32,7 +32,7 @@ $avtErr ="";
 // Si le formulaire de modification de profil est rempli
 if(isset($_POST['modifier'])) {
 // Si une image a été uploadée
-	if(isset($_FILES['avatar'])) {
+	if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
 		// Récupérer l'extension de l'image
 		$extension = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
 		// Si l'image est un jpg
