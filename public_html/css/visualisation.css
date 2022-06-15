@@ -247,3 +247,9 @@ select#conversation {
     border-radius: 1em;
     margin-bottom: 1em;
 }
+
+#formshare .separator {
+    border-bottom: 1px solid #CCC;
+    margin: 0 3% 15px 3%;
+    width: 90%;
+}

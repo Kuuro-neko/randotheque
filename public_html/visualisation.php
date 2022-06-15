@@ -7,6 +7,19 @@ require 'php/config.php';
 require 'php/connexiondb.php'; // Crée $linkpdo
 require 'php/functions.php';
 include 'php/deconnexion_utilisateur.php';
+
+
+if(isset($_POST['download'])) {
+	$file = "gpx/".$_SESSION['id_util']."_".$_GET['id_gpx'].".gpx";
+	header("Cache-Control: public");
+	header("Content-Description: File Transfer");
+	header("Content-Disposition: attachment; filename=$file");
+	header("Content-Type: application/zip");
+	header("Content-Transfer-Encoding: binary");
+
+	// read the file from disk
+	readfile($file);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -133,7 +146,7 @@ include 'php/deconnexion_utilisateur.php';
 				?>
 		</form>
 	</fieldset>
-	<fieldset id="share"><legend class=title>Partager dans un groupe de chat</legend>
+	<fieldset id="share"><legend class=title>Partager</legend>
 		<form id="formshare" class="element" action="visualisation.php?id_gpx=<?php echo $_GET['id_gpx']; ?>" method="post">
 		<?php
 			$sql = "SELECT * FROM participer, conversation WHERE participer.Id_Utilisateur = :util AND participer.Id_Conversation = conversation.Id_Conversation";
@@ -150,11 +163,20 @@ include 'php/deconnexion_utilisateur.php';
 				}
 				echo "</select>";
 				echo "</div>";
-				echo "<input type=\"submit\" name=\"share\" value=\"Partager\">";
+				echo "<input type=\"submit\" name=\"share\" value=\"Partager dans un groupe de chat\">";
 			} else {
 				echo "<p class=\"error conversation\">Vous n'etes présents dans aucun groupe de chat.</p>";
 				echo "</div>";
 			}
+		?>
+		<div class="separator"></div>
+		<?php
+
+			// Bouton pour télécharger la trace gpxw
+			echo "<input type=\"submit\" name=\"download\" value=\"Télécharger la trace\">";
+			// Si le bouton de téléchargement est cliqué, on télécharge le fichier gpx
+			
+		
 
 			// Si la trace a été partagée, on l'envoie dans la conversation choisie
 			if (isset($_POST['share'])) {
