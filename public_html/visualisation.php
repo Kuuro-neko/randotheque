@@ -11,6 +11,9 @@ include 'php/deconnexion_utilisateur.php';
 <html lang="fr">
 
 <?php
+	
+	
+
 	include 'php/balise_head.php';
 ?>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -131,7 +134,58 @@ include 'php/deconnexion_utilisateur.php';
 					}
 				?>
 		</form>
-	</fieldset></div>
+	</fieldset>
+	<fieldset id="share"><legend class=title>Partager dans un groupe de chat</legend>
+		<form id="formshare" class="element" action="visualisation.php?id_gpx=<?php echo $_GET['id_gpx']; ?>" method="post">
+		<?php
+			$sql = "SELECT * FROM participer, conversation WHERE participer.Id_Utilisateur = :util AND participer.Id_Conversation = conversation.Id_Conversation";
+			$req = $linkpdo->prepare($sql);
+			$req->execute(array('util' => $_SESSION['id_util']));
+			echo "<div class=\"col\">";
+			echo "<label for=\"conversation\">Conversation :</label>";
+			if($result = $req->fetchAll()) {
+				echo "<select name=\"conversation\" id=\"conversation\">";
+				foreach($result as $row) {
+					$id_conversation = $row['Id_Conversation'];
+					$nom_conversation = $row['Libelle'];
+					echo "<option value=\"$id_conversation"."||"."$nom_conversation"."\">$nom_conversation<br>";
+				}
+				echo "</select>";
+				echo "</div>";
+				echo "<input type=\"submit\" name=\"share\" value=\"Partager\">";
+			} else {
+				echo "<p class=\"error conversation\">Vous n'etes présents dans aucun groupe de chat.</p>";
+				echo "</div>";
+			}
+
+			// Si la trace a été partagée, on l'envoie dans la conversation choisie
+			if (isset($_POST['share'])) {
+				$message = "[trace=".$_GET['id_gpx']."]";
+				$paramconv = explode("||", $_POST['conversation']);
+				$id_conv = $paramconv[0];
+				$nom_conv = $paramconv[1];
+
+				// FAIRE DE CA UNE FONCTION
+
+				$date = strtotime("now");
+				$sql = "INSERT INTO message (Id_utilisateur, Id_Conversation, Date_heure, Contenu) VALUES (:id_util, :id_conv, :date, :contenu)";
+				$req = $linkpdo->prepare($sql);
+				$req->execute(array(
+					'id_util' => $_SESSION['id_util'],
+					'id_conv' => $id_conv,
+					'date' => $date,
+					'contenu' => $message
+				));
+				if ($req) {
+					echo "<p class=\"success\">Trace partagée dans le groupe de chat : <a href=\"chat.php?id_conv=".$id_conv."&conv_name=".$nom_conv."\"> ".$nom_conv."</a>.</p>";
+				} else {
+					echo "<p class=\"error\">Erreur lors du partage de la trace.</p>";
+				}
+			}
+		?>
+		</form>
+	</fieldset>
+</div>
 	<?php
 		if(isset($_POST["edit"])) {
 			// Insérer les données du fichier gpx dans la table fichier_gpx de la base de données
