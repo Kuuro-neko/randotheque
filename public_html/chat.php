@@ -51,7 +51,6 @@ if(isset($_POST['quit'])) {
 				}
 			?>
 		</div>
-
 		<form name="createroom" action="creer_chat.php">
 			<input name="createroom" type="submit"  id="createroom" value="Créer un nouveau groupe"/>
 		</form>
@@ -114,7 +113,6 @@ if(isset($_POST['quit'])) {
 						else {
 							echo " <a class=\"otherutil\" href=\"profil.php?id_util=".$row['Id_Utilisateur']."\">".$row['Nom_d_utilisateur']."</a>";
 						}
-						
 						echo " : ".$row['Contenu']."</p>";
 						echo "</div>";
 					}
