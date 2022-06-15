@@ -63,6 +63,18 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 		<?php while($data = $reqFichierGpx->fetch()) {
 			echo $data[0];
 		}?> traces, détails sur votre <a href="profil.php?id_util=<?php echo $_SESSION['id_util']?>">profil</a></p>
+
+		<!--Meteo-->
+		<!-- weather widget start -->
+		<div class="meteo" style="width:510px;color:#000;border:1px solid #F2F2F2;padding: 0 10px 10px 10px;">
+		<p>Météo</p>
+		<iframe height="85" frameborder="0" width="510" scrolling="no" src="http://www.prevision-
+		meteo.ch/services/html/toulouse/horizontal ?bg=B6AC96&txtcol=000000&tmpmin=fff000&tmpmax=378ADF "
+		allowtransparency="true"></iframe>
+		<a style="text-decoration:none;font-size:0.75em;" title="Détail des prévisions pour Toulouse"
+		href="http://www.prevision-meteo.ch/meteo/localite/toulouse">Prévisions complètes pour Toulouse</a>
+		</div>
+		<!-- weather widget end -->
 	
 </body>
 <?php
