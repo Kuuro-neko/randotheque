@@ -63,7 +63,7 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 		<p>Vous possédez 
 		<?php while($data = $reqFichierGpx->fetch()) {
 			echo $data[0];
-		}?> traces, détails sur votre <a href="profil.php">profil</a></p>
+		}?> traces, détails sur votre <a href="profil.php?id_util=<?php echo $_SESSION['id_util']?>">profil</a></p>
 	</div>
 	
 </body>

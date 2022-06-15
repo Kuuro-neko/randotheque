@@ -24,6 +24,8 @@ if(isset($_POST['quit'])) {
 	$req = $linkpdo->prepare($sql);
 	$req->execute(array('id_conv' => $id_conv, 'id_util' => $_SESSION['id_util']));
 
+	$req = envoyerMessage($_SESSION['id_util'], $id_conv, "<p class=\"leftchat\">a quitté le chat<p>");
+
 	header('Location: chat.php');
 }
 ?>

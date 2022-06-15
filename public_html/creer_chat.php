@@ -81,7 +81,7 @@ include 'php/head.php';
 					}
 					echo "<p class='success'>Le chat a bien été créé !</p>";
 					// Rediriger vers la page du chat
-					Header("Location: chat.php?id_conv=".$id_conv);
+					Header("Location: chat.php?id_conv=".$id_conv."&conv_name=".$nom_chat);
 				} else {
 					echo "<p class='error'>Un ou plusieurs des utilisateurs saisis n'existe(nt) pas !</p>";
 					echo "<p class='error'>Vérifiez de plus que vous n'avez pas oublié de mettre une virgule entre chaque nom d'utilisateur.</p>";
