@@ -1,6 +1,6 @@
 <?php
 session_start();
-setlocale(LC_TIME, 'fr_FR.utf8','fra');
+date_default_timezone_set('Europe/Paris');
 $thisPageTitle = "Randothèque - Chat"; // Titre de l'onglet
 $thisPage = "chat"; // Pour lier à la bonne feuille CSS
 
