@@ -17,6 +17,9 @@ include 'php/deconnexion_utilisateur.php';
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+    <script src="//unpkg.com/leaflet-gesture-handling"></script>
 	<body onload="initialize()">
 <?php
 	include 'php/head.php';
@@ -289,7 +292,7 @@ include 'php/deconnexion_utilisateur.php';
 
 <script type="text/javascript">
     function initialize() {
-        var map = L.map('map', {fullscreenControl: true}).setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
+        var map = L.map('map', {fullscreenControl: true, gestureHandling: true}).setView([<?php echo $waypoints[(count($waypoints)/2)]['lat']; ?>, <?php echo $waypoints[(count($waypoints)/2)]['lon']; ?>], 13.5); // LIGNE 18
 
         var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
             attribution: '© OpenStreetMap contributors',
