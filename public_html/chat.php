@@ -41,13 +41,26 @@ if(isset($_POST['quit'])) {
 				$req = $linkpdo->prepare($sql);
 				$req->execute(array('util' => $_SESSION['id_util']));
 				while($resultat = $req->fetch()) {
-					echo "<p class='chat_room_title'><a href=\"chat.php?id_conv=".$resultat['Id_Conversation']."&conv_name=".$resultat['Libelle']."\">".$resultat['Libelle']."</a></p>";
+					$currentRoom = "";
+					$disablelink = "";
+					if(isset($_GET['id_conv'])) {
+						if($_GET['id_conv'] == $resultat['Id_Conversation']) {
+							$currentRoom = "current";
+							$disablelink = "style=\"pointer-events: none\"";
+						}
+					}
+					echo "<a href=\"chat.php?id_conv=".$resultat['Id_Conversation']."&conv_name=".$resultat['Libelle']."\" ".$disablelink."><div class='".$currentRoom."room'>";
+					echo "<p class='".$currentRoom."chatroom'><strong>".$resultat['Libelle']."</strong></p>";
 					// Récupérer le nombre d'utilisateurs dans le groupe
 					$sql2 = "SELECT count(Id_Utilisateur) as Nb_Util FROM participer WHERE Id_Conversation = :conv";
 					$req2 = $linkpdo->prepare($sql2);
 					$req2->execute(array('conv' => $resultat['Id_Conversation']));
 					$resultat2 = $req2->fetch();
-					echo "<p class='chat_room_nb_util'> avec ".$resultat2['Nb_Util']." utilisateurs</p></br>";
+					echo "<p class='".$currentRoom."chatroom'> avec ".$resultat2['Nb_Util']." utilisateurs</p></br>";
+					if($currentRoom == "current") {
+						echo "<p class='".$currentRoom."chatroom'>Vous avez ouvert ce groupe de chat</p>";
+					}
+					echo "</div></a>";
 				}
 			?>
 		</div>
