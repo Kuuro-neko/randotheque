@@ -107,7 +107,15 @@ if(isset($_POST['quit'])) {
 					$result = $req->fetchAll();
 					foreach ($result as $row) {
 						echo "<div class='message'>";
-						echo "<p class='msg'>".date("H:i",$row['Date_heure'])." ".$row['Nom_d_utilisateur']." : ".$row['Contenu']."</p>";
+						echo "<p class='msg'>".date("H:i",$row['Date_heure']);
+						if($row['Id_Utilisateur'] == $_SESSION['id_util']) {
+							echo " <strong>".$row['Nom_d_utilisateur']."</strong>";
+						}
+						else {
+							echo " <a class=\"otherutil\" href=\"profil.php?id_util=".$row['Id_Utilisateur']."\">".$row['Nom_d_utilisateur']."</a>";
+						}
+						
+						echo " : ".$row['Contenu']."</p>";
 						echo "</div>";
 					}
 				}

@@ -126,3 +126,18 @@ padding: 10px;
     display: flex;
     flex-direction: column-reverse;
 }
+
+strong {
+    font-weight: bold;
+    color: var(--vert-fonce);
+}
+
+.otherutil {
+    text-decoration: none;
+    color: var(--vert-fonce);
+}
+
+.otherutil:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
