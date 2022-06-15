@@ -59,7 +59,7 @@ float:right; }
   
 #usermsg {
     width:65%;
-    margin : 0 auto 0 20%;
+    margin : 0 auto 0 15%;
     border:1px solid var(--beige); }
   
 #submit { width: 60px; }
