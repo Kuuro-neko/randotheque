@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 // Fonction qui envoie un message de contenu = $message, au nom de l'utilisateur $id_util dans la conversation $id_conv. Renvoie true si la requete s'est bien passée, false sinon.
 function envoyerMessage($id_util, $id_conv, $message) {
 	require 'php/config.php';
