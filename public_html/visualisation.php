@@ -274,6 +274,32 @@ if(isset($_POST['download'])) {
 				$note = 2.5;
 				$comment = "";
 			}
+
+			// Si le bouton de commentaire est cliqué, on enregistre le commentaire dans la base de données
+			if(!$alreadyCommented) {
+				// Récupérer le contenu du formulaire et insérer les données dans la table interagir avec Id_Utilisateur = $_SESSION['id_util'] et Id_GPX = $id_gpx
+				if(isset($_POST["comment"])) {
+					$req=$linkpdo->prepare("INSERT INTO interagir (Id_Utilisateur, Id_Fichier_GPX, Note, Commentaire) VALUES (:id_utilisateur, :id_gpx, :note, :commentaire)");
+					$req->execute(array(
+						':id_utilisateur' => $_SESSION['id_util'],
+						':id_gpx' => $_GET['id_gpx'],
+						':note' => $_POST['note'],
+						':commentaire' => $_POST['commentaire']
+					));
+				}
+			} else {
+				// Récupérer le contenu du formulaire et update les données dans la table interagir avec Id_Utilisateur = $_SESSION['id_util'] et Id_GPX = $id_gpx
+				if(isset($_POST["comment"])) {
+					$req=$linkpdo->prepare("UPDATE interagir SET Note = :note, Commentaire = :commentaire WHERE Id_Utilisateur = :id_utilisateur AND Id_Fichier_GPX = :id_gpx");
+					$req->execute(array(
+						':id_utilisateur' => $_SESSION['id_util'],
+						':id_gpx' => $_GET['id_gpx'],
+						':note' => $_POST['note'],
+						':commentaire' => $_POST['commentaire']
+					));
+					$comment = $_POST['commentaire'];
+				}	
+			}
 		?>
 
 	<fieldset id="interact_comments">
@@ -300,18 +326,7 @@ if(isset($_POST['download'])) {
 				<input type="submit" name="comment" value="<?php echo ($alreadyCommented) ? "Modifier" : "Commenter"; ?>">
 			</div>
 		</form>
-		<?php 
-			// Récupérer le contenu du formulaire et insérer les données dans la table interagir avec Id_Utilisateur = $_SESSION['id_util'] et Id_GPX = $id_gpx
-			if(isset($_POST["comment"])) {
-				$req=$linkpdo->prepare("INSERT INTO interagir (Id_Utilisateur, Id_Fichier_GPX, Note, Commentaire) VALUES (:id_utilisateur, :id_gpx, :note, :commentaire)");
-				$req->execute(array(
-					':id_utilisateur' => $_SESSION['id_util'],
-					':id_gpx' => $_GET['id_gpx'],
-					':note' => $_POST['note'],
-					':commentaire' => $_POST['commentaire']
-				));
-			}
-		?>
+
 
 		<div id="separator"></div>
 
