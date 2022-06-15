@@ -118,9 +118,9 @@ include 'php/deconnexion_utilisateur.php';
 					echo "<tr>
 					<th onclick=\"sortTable(0)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre alphabétique\">Description</th>
 					<th onclick=\"sortTable(1)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre alphabétique\">Type de sport</th>
-					<th onclick=\"sortTable(2)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par difficulté croissante\">Difficulté</th>
+					<th onclick=\"sortTable(2)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre de difficulté\">Difficulté</th>
 					<th onclick=\"sortTable(3)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre alphabétique\">Localisation</th>
-					<th onclick=\"sortTable(4)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par distance croissante\">Distance</th>
+					<th onclick=\"sortTable(4)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre de distance\">Distance</th>
 					<th onclick=\"sortTable(5)\" style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\"Trier par ordre alphabétique\">Propriétaire</th>
 					<th>Visualiser la trace</th></tr>";
 					foreach($resultat as $gpx) {
