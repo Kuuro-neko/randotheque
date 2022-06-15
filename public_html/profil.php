@@ -28,10 +28,11 @@ if($_SESSION['id_util'] != $_GET['id_util']) {
 $thisPageTitle = "Randothèque - Profil de ".$userName; // Titre de l'onglet
 $thisPage = "profil"; // Pour lier à la bonne feuille CSS
 
+$avtErr ="";
 // Si le formulaire de modification de profil est rempli
 if(isset($_POST['modifier'])) {
 // Si une image a été uploadée
-	if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
+	if(isset($_FILES['avatar'])) {
 		// Récupérer l'extension de l'image
 		$extension = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
 		// Si l'image est un jpg
@@ -39,12 +40,12 @@ if(isset($_POST['modifier'])) {
 			// Récupérer l'image
 			$image = $_FILES['avatar']['tmp_name'];
 			// Créer un nom unique pour l'image
-			$nomImage = $_SESSION['id_util'].$extension;
+			$nomImage = $_SESSION['id_util'].".".$extension;
 			// Déplacer l'image dans le dossier images
 			move_uploaded_file($image, "images/avatars/".$nomImage);
 		} else {
 			// Sinon, afficher un message d'erreur
-			echo "<script>alert('Votre image doit être un jpg');</script>";
+			$avtErr = "<script>alert('Votre image doit être un jpg');</script>";
 		}
 	}
 
@@ -126,10 +127,11 @@ if(isset($_POST['modifier'])) {
 			echo "<p class=\"err\">Vous avez essayé d'accéder à un profil non existant, vous avez été redirigé vers votre profil</p>";
 		}
 	}
+	echo $avtErr;
 ?>
 	<fieldset class="main">
 		<legend class="title">Profil de <?php echo $userName; ?></legend>
-		<form method="post" action="profil.php?id_util=<?php echo $_SESSION['id_util']; ?> ">
+		<form method="post" action="profil.php?id_util=<?php echo $_SESSION['id_util']; ?>" enctype="multipart/form-data">
 			<!--<fieldset id="contenuProfil" <?php /*echo $disableEdit; */?>>-->
 			<div id="contenuProfil">
 				<div class="col im">
