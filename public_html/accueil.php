@@ -63,20 +63,12 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 		<p>Vous possédez 
 		<?php while($data = $reqFichierGpx->fetch()) {
 			echo $data[0];
-<<<<<<< HEAD
 		}?> traces, détails sur votre <a href="profil.php">profil</a></p>
 	</div>
 	
-=======
-		}?> traces, détails sur votre <a href="profil.php">profil<a/></p>
-	</div>
-	
 </body>
-
->>>>>>> cab0ac3125a05c586afd5a0d7c91228c4abf3e2a
 <?php
 	include 'php/footer.php';
 ?>
-</body>
 
 </html>
