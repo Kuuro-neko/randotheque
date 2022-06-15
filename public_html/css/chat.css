@@ -141,3 +141,30 @@ strong {
     text-decoration: underline;
     font-weight: bold;
 }
+
+.trace {
+    background-color: var(--gris-tres-clair);
+    padding: 5px;
+    margin: 2px 0 2px 5%;
+    float: left;
+    width: 70%;
+    border: 1px solid var(--vert-fonce);
+    border-radius: 5px;
+}
+
+.trace:hover {
+    background-color: var(--vert-tres-clair);
+    border: 2px solid var(--vert-fonce);
+    margin: 1px 0 1px 5%;
+}
+
+
+.gpxinfo {
+    text-decoration: none;
+    color: #000;
+}
+
+.gpxerror {
+    color: var(--rouge-clair);
+    font-weight: bold;
+}

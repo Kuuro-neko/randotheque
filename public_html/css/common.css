@@ -1,7 +1,10 @@
 :root {
+    --gris-tres-clair: #f0f0f0;
+    --vert-tres-clair: #e4eed8;
     --vert-clair: #a3c67b;
     --vert-fonce: #374c2c;
     --rouge-fonce: #b80000;
+    --rouge-clair: #d08888;
     --beige: #B6AC96;
     --beige-clair: #E0D7C7;
     --border-color: rgb(98, 98, 98);

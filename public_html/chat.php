@@ -91,7 +91,6 @@ if(isset($_POST['quit'])) {
 						'date' => $date,
 						'contenu' => $_POST['message']
 					));
-					print_r($req->errorInfo());
 				}
 
 				// Si on a ouvert un groupe de chat
@@ -113,7 +112,31 @@ if(isset($_POST['quit'])) {
 						else {
 							echo " <a class=\"otherutil\" href=\"profil.php?id_util=".$row['Id_Utilisateur']."\">".$row['Nom_d_utilisateur']."</a>";
 						}
-						echo " : ".$row['Contenu']."</p>";
+						// Si le contenu n'est pas de la forme [trace=x]
+						if(strpos($row['Contenu'], "[trace=") !== false) {
+							// Récupérer l'id de la trace (x dans le message de forme [trace=x])
+							$trace = substr($row['Contenu'], 7, -1);
+							echo " a envoyé une trace GPX. Cliquez dessus pour la visualiser : </p>";
+							// Récupérer les informations sur la trace
+							$sql2 = "SELECT * FROM fichier_gpx WHERE Id_Fichier_GPX = :id_gpx";
+							$req2 = $linkpdo->prepare($sql2);
+							$req2->execute(array(':id_gpx' => $trace));
+							echo "<a href=\"\"><div class=\"trace\">";
+							if($gpx = $req2->fetch()) {
+								echo "<p class='gpxinfo'><strong>Type de sport</strong> : ".$gpx['Type_de_sport']."</p>";
+								echo "<p class='gpxinfo'><strong>Localisation</strong> : ".$gpx['Localisation']."</p>";
+								echo "<p class='gpxinfo'><strong>Difficulté</strong> : ".$gpx['Difficulte']." / 5</p>";
+								echo "<p class='gpxinfo'><strong>Description</strong> : ".$gpx['Description']."</p>";
+
+							} else {
+								echo "<p class='gpxerror'>La trace n'existe pas ou a été supprimée</p>";
+							}
+							echo "</div></a>";
+
+
+						} else {
+							echo " : ".$row['Contenu']."</p>";
+						}
 						echo "</div>";
 					}
 				}
