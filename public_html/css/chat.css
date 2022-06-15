@@ -183,3 +183,7 @@ strong {
     color: var(--rouge-clair);
     font-weight: bold;
 }
+
+.leftchat {
+    color: var(--rouge-clair);
+}

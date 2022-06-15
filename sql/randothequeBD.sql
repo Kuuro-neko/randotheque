@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 15, 2022 at 03:51 AM
+-- Generation Time: Jun 15, 2022 at 04:04 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `conversation` (
   `Id_Conversation` int(11) NOT NULL AUTO_INCREMENT,
   `Libelle` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Id_Conversation`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `conversation`
@@ -69,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `conversation` (
 INSERT INTO `conversation` (`Id_Conversation`, `Libelle`) VALUES
 (7, 'Sortie forÃªt de Montmorency'),
 (6, 'Sortie au lac de Cambrils ce week-end'),
-(8, 'Gorges de l\'hÃ©raut de st guilhem');
+(8, 'Gorges de l\'hÃ©raut de st guilhem'),
+(9, 'Ta marche a st guilhem');
 
 -- --------------------------------------------------------
 
@@ -89,13 +90,14 @@ CREATE TABLE IF NOT EXISTS `fichier_gpx` (
   `Distance` float DEFAULT NULL,
   PRIMARY KEY (`Id_Fichier_GPX`),
   KEY `Id_Utilisateur` (`Id_Utilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fichier_gpx`
 --
 
 INSERT INTO `fichier_gpx` (`Id_Fichier_GPX`, `Nom`, `Description`, `Type_de_sport`, `Difficulte`, `Localisation`, `Id_Utilisateur`, `Distance`) VALUES
+(51, '28_51', 'Non renseignÃ©', 'Course Ã  pied', 0, 'Poussan', 28, 5.11996),
 (43, '1_43', 'Trajet vers l\'IUT, passe au bord d\'un lac agrÃ©able', 'VÃ©lo', 1, 'Toulouse', 1, 5.01988),
 (44, '1_44', 'Long trajet mais le lac de Flourens en vaut la peine !', 'Course Ã  pied', 4, 'Flourens', 1, 16.9315),
 (45, '1_45', 'Non renseignÃ©', 'Natation', 3, 'Cambrils', 1, 2.97822),
@@ -127,6 +129,19 @@ CREATE TABLE IF NOT EXISTS `interagir` (
 
 INSERT INTO `interagir` (`Id_Utilisateur`, `Id_Fichier_GPX`, `Note`, `Commentaire`) VALUES
 (14, 12, 5, 'Longue balade trÃ¨s agrÃ©able avec de nombreux arbres pour cacher le soleil ! J\'ai aussi bien aimÃ© le Refuge de la loubatiÃ¨re qu\'on trouve sur le chemin vers Lacombe.'),
+(28, 47, 1, '		Si vous etes allergiques au pollen n\'y allez pas au printemps haha	'),
+(28, 46, 3.5, '	Chemin sinueux mais agrÃ©able		'),
+(1, 47, 4.5, '			De beaux arbres bordent ce sentier. Je recommande'),
+(1, 49, 3.5, '		Parcours court mais agrÃ©able	'),
+(1, 46, 2.5, '			Le refuge de la loubatiÃ¨re sur le chemin est un incontournable !!'),
+(39, 44, 4.5, '	Super		'),
+(39, 51, 4.5, '			Super'),
+(39, 50, 4.5, '			StylÃ©'),
+(14, 44, 3.5, '			Bon trajet'),
+(14, 48, 5, '			Trop bien !'),
+(14, 47, 0.5, '			J\'ai pas aimÃ© du tout'),
+(14, 43, 3.5, 'Bon trajet entre l\'IUT et Ramonville'),
+(14, 51, 2, '			Un peu court Ã  mon gout, vous pouvez continuer vers la montagne derriÃ¨re c\'est sympa'),
 (1, 6, 3.5, 'Petit lac sympa'),
 (1, 43, 4.5, '			Je l\'emprunte tous les jours et le chemin est agrÃ©able !'),
 (39, 45, 3.5, '		TrÃ¨s beau lac mais pensez Ã  prendre de la crÃ¨me solaire !!!	'),
@@ -154,6 +169,8 @@ CREATE TABLE IF NOT EXISTS `message` (
 --
 
 INSERT INTO `message` (`Id_Utilisateur`, `Date_heure`, `Contenu`, `Id_Conversation`) VALUES
+(14, 1655265743, 'Salut ! je voulais savoir comment Ã©tait cette rando ', 9),
+(14, 1655265566, 'Je suis dispo !', 8),
 (39, 1655264821, 'Je peux pas j\'ai un tournoi ', 8),
 (1, 1655264801, 'CarrÃ©ment !', 8),
 (28, 1655264786, 'Rdv lÃ  bas demain 13h ?', 8),
@@ -177,7 +194,8 @@ INSERT INTO `message` (`Id_Utilisateur`, `Date_heure`, `Contenu`, `Id_Conversati
 (39, 1655263340, 'Attends je regarde ta trace', 6),
 (1, 1655263268, '[trace=45]', 6),
 (1, 1655263256, 'Voulez vous sortir au lac de Cambrils ce week end ?', 6),
-(1, 1655263243, 'Salut tout le monde !', 6);
+(1, 1655263243, 'Salut tout le monde !', 6),
+(14, 1655265753, '[trace=50]', 9);
 
 -- --------------------------------------------------------
 
@@ -214,8 +232,10 @@ INSERT INTO `participer` (`Id_Utilisateur`, `Id_Conversation`) VALUES
 (1, 6),
 (1, 7),
 (1, 8),
+(1, 9),
 (2, 8),
 (14, 8),
+(14, 9),
 (28, 7),
 (28, 8),
 (39, 6),
