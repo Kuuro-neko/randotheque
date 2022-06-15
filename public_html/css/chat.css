@@ -118,6 +118,11 @@ padding: 10px;
     margin: 10px;
 }
 
-#roombox {
+#roombox, #chatbox {
     overflow-y: scroll;
+}
+
+#chatbox {
+    display: flex;
+    flex-direction: column-reverse;
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+setlocale(LC_TIME, 'fr_FR.utf8','fra');
 $thisPageTitle = "Randothèque - Chat"; // Titre de l'onglet
 $thisPage = "chat"; // Pour lier à la bonne feuille CSS
 
@@ -91,6 +92,7 @@ if(isset($_POST['quit'])) {
 						'date' => $date,
 						'contenu' => $_POST['message']
 					));
+					print_r($req->errorInfo());
 				}
 
 				// Si on a ouvert un groupe de chat
@@ -99,15 +101,13 @@ if(isset($_POST['quit'])) {
 					$id_conv = $_GET['id_conv'];
 					$sql = "SELECT * FROM conversation, message, utilisateur
 					WHERE conversation.Id_Conversation = :id_conv AND conversation.Id_Conversation = message.Id_Conversation AND message.Id_Utilisateur = utilisateur.Id_Utilisateur
-					ORDER BY message.Date_heure ASC";
+					ORDER BY message.Date_heure DESC";
 					$req = $linkpdo->prepare($sql);
 					$req->execute(array(':id_conv' => $id_conv));
 					$result = $req->fetchAll();
 					foreach ($result as $row) {
 						echo "<div class='message'>";
-						echo "<p class='user'>".$row['Nom_Utilisateur']."</p>";
-						echo "<p class='time'>".$row['Date_heure']."</p>";
-						echo "<p class='msg'>".$row['Texte_Message']."</p>";
+						echo "<p class='msg'>".date("H:i",$row['Date_heure'])." ".$row['Nom_d_utilisateur']." : ".$row['Contenu']."</p>";
 						echo "</div>";
 					}
 				}
@@ -117,13 +117,20 @@ if(isset($_POST['quit'])) {
 		<form name="message" action="chat.php
 		<?php 
 			if(isset($_GET['id_conv'])) {
-				echo "?id_conv=".$_GET['id_conv'];
+				echo "?id_conv=".$_GET['id_conv']."&conv_name=".$_GET['conv_name'];
 			}
 		?>
 		" method="post">
 			<input name="message" type="text" id="usermsg" size="63" />
 			<input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer" <?php if(!isset($_GET['id_conv'])) { echo 'disabled="disabled"'; } ?>/>
-			<button type="button" onClick="window.location.reload();">Rafraichir</button>
+			<?php 
+				if(isset($_GET['id_conv'])) {
+					?>
+					<button onclick="window.location.href='/chat.php?id_conv=<?php echo $_GET['id_conv']?>'">Rafraichir</button>
+					<?php 
+				}
+			?>
+			
 		</form>
 		
 	</div>
