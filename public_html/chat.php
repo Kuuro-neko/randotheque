@@ -128,7 +128,7 @@ if(isset($_POST['quit'])) {
 							$sql2 = "SELECT * FROM fichier_gpx WHERE Id_Fichier_GPX = :id_gpx";
 							$req2 = $linkpdo->prepare($sql2);
 							$req2->execute(array(':id_gpx' => $trace));
-							echo "<a href=\"\"><div class=\"trace\">";
+							echo "<a href=\"visualisation.php?id_gpx=".$trace."\"><div class=\"trace\">";
 							if($gpx = $req2->fetch()) {
 								echo "<p class='gpxinfo'><strong>Type de sport</strong> : ".$gpx['Type_de_sport']."</p>";
 								echo "<p class='gpxinfo'><strong>Localisation</strong> : ".$gpx['Localisation']."</p>";

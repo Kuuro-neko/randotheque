@@ -295,8 +295,7 @@ include 'php/deconnexion_utilisateur.php';
 		<div id="comments">	
 		<?php
 			$req=$linkpdo->prepare("SELECT * FROM fichier_gpx, interagir, utilisateur WHERE fichier_gpx.Id_Fichier_GPX = :id_gpx AND fichier_gpx.Id_Fichier_GPX = interagir.Id_Fichier_GPX AND interagir.Id_Utilisateur = utilisateur.Id_Utilisateur");
-			$req->bindValue(':id_gpx', $id_gpx, PDO::PARAM_INT);
-			$req->execute();
+			$req->execute(array('id_gpx' => $id_gpx));
 			$interaction = $req->fetchAll();
 			foreach($interaction as $inter) {
 				?>

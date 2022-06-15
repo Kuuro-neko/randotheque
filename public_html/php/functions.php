@@ -1,21 +1,7 @@
 <?php
 
 
-// Function that parse the waypoints of a GPX file in gpx/ given it's name and return an array of waypoints
-function parse_waypoints($gpx_file) {
-	$waypoints = array();
-	$gpx_file = simplexml_load_file($gpx_file);
-	foreach ($gpx_file->wpt as $waypoint) {
-		$waypoints[] = array(
-			'lat' => $waypoint->attributes()->lat,
-			'lon' => $waypoint->attributes()->lon,
-			'name' => $waypoint->name,
-			'ele' => $waypoint->ele,
-		);
-	}
-	unset($gpx_file);
-	return $waypoints;
-}
+
 
 // Fonction qui envoie un message de contenu = $message, au nom de l'utilisateur $id_util dans la conversation $id_conv. Renvoie true si la requete s'est bien passée, false sinon.
 function envoyerMessage($id_util, $id_conv, $message) {
