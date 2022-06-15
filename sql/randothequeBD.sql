@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 15, 2022 at 03:48 AM
+-- Generation Time: Jun 15, 2022 at 03:51 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -126,11 +126,7 @@ CREATE TABLE IF NOT EXISTS `interagir` (
 --
 
 INSERT INTO `interagir` (`Id_Utilisateur`, `Id_Fichier_GPX`, `Note`, `Commentaire`) VALUES
-(2, 12, 1, 'Pas un seul tacos c\'est inadmissible'),
-(1, 12, 4.5, 'Super stylÃ©'),
 (14, 12, 5, 'Longue balade trÃ¨s agrÃ©able avec de nombreux arbres pour cacher le soleil ! J\'ai aussi bien aimÃ© le Refuge de la loubatiÃ¨re qu\'on trouve sur le chemin vers Lacombe.'),
-(39, 12, 0, 'Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©'),
-(28, 12, 2, 'Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©Text extremement long pour tester les limites de la zone des commentaires ouiiiiii ce texte esttrÃ¨s long et j\'ai aucune inspiration. Envie de manger un tacos Ã  volontÃ© lÃ  omg Ã§a me mettrait trop bien. Elise spat dracomancien + lame d\'infini et gant spell crit c\'est une dinguerie. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Go mettre des caractÃ¨res bizarres tant qu\'o faire pour test : arobase @ esperluette & accolades {} barre verticale | emoji caca ðŸ’©'),
 (1, 6, 3.5, 'Petit lac sympa'),
 (1, 43, 4.5, '			Je l\'emprunte tous les jours et le chemin est agrÃ©able !'),
 (39, 45, 3.5, '		TrÃ¨s beau lac mais pensez Ã  prendre de la crÃ¨me solaire !!!	'),
