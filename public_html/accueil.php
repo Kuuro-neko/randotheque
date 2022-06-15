@@ -59,12 +59,10 @@ require 'php/connexiondb.php'; // Crée $linkpdo
 	</div>
 	
 	<!--Statistique nb trace-->
-	<div class="nbTrace">
-		<p>Vous possédez 
+		<p class="nbTrace">Vous possédez 
 		<?php while($data = $reqFichierGpx->fetch()) {
 			echo $data[0];
 		}?> traces, détails sur votre <a href="profil.php?id_util=<?php echo $_SESSION['id_util']?>">profil</a></p>
-	</div>
 	
 </body>
 <?php
