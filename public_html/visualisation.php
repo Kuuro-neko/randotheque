@@ -5,15 +5,13 @@ $thisPage = "visualisation"; // Pour lier à la bonne feuille CSS
 
 require 'php/config.php';
 require 'php/connexiondb.php'; // Crée $linkpdo
+require 'php/functions.php';
 include 'php/deconnexion_utilisateur.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <?php
-	
-	
-
 	include 'php/balise_head.php';
 ?>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -165,17 +163,8 @@ include 'php/deconnexion_utilisateur.php';
 				$id_conv = $paramconv[0];
 				$nom_conv = $paramconv[1];
 
-				// FAIRE DE CA UNE FONCTION
+				$req = envoyerMessage($_SESSION['id_util'], $id_conv, $message);
 
-				$date = strtotime("now");
-				$sql = "INSERT INTO message (Id_utilisateur, Id_Conversation, Date_heure, Contenu) VALUES (:id_util, :id_conv, :date, :contenu)";
-				$req = $linkpdo->prepare($sql);
-				$req->execute(array(
-					'id_util' => $_SESSION['id_util'],
-					'id_conv' => $id_conv,
-					'date' => $date,
-					'contenu' => $message
-				));
 				if ($req) {
 					echo "<p class=\"success\">Trace partagée dans le groupe de chat : <a href=\"chat.php?id_conv=".$id_conv."&conv_name=".$nom_conv."\"> ".$nom_conv."</a>.</p>";
 				} else {

@@ -12,6 +12,8 @@ include 'php/deconnexion_utilisateur.php';
 <?php
 require 'php/config.php';
 require 'php/connexiondb.php'; // Connexion à la base de données
+require 'php/functions.php';
+
 include 'php/balise_head.php';
 echo "<body>";
 include 'php/head.php';
@@ -95,15 +97,7 @@ if(isset($_POST['quit'])) {
 			<?php
 				// Si un message a été envoyé, on le met dans la base de données avant de récupérer tous les messages !
 				if(isset($_POST['submitmsg'])) {
-					$date = strtotime("now");
-					$sql = "INSERT INTO message (Id_utilisateur, Id_Conversation, Date_heure, Contenu) VALUES (:id_util, :id_conv, :date, :contenu)";
-					$req = $linkpdo->prepare($sql);
-					$req->execute(array(
-						'id_util' => $_SESSION['id_util'],
-						'id_conv' => $_GET['id_conv'],
-						'date' => $date,
-						'contenu' => $_POST['message']
-					));
+					$req = envoyerMessage($_SESSION['id_util'], $_GET['id_conv'], $_POST['message']);
 				}
 
 				// Si on a ouvert un groupe de chat
