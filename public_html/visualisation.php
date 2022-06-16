@@ -122,7 +122,7 @@ if(isset($_POST['download'])) {
 					<?php echo $note_moyenne; ?>
 				</div>
 				<label for="type_de_sport">Type de sport :</label>
-				<select type="text" name="type_de_sport" id="type_de_sport">
+				<select type="text" name="type_de_sport" id="type_de_sport" <?php echo $disableEdit; ?>>
 					<option value="<?php echo $type_de_sport; ?>"><?php echo $type_de_sport; ?></option>
 					<option value="">Type de sport</option>
 					<option value="">Non renseigné</option>
@@ -149,9 +149,9 @@ if(isset($_POST['download'])) {
 					<option value="Other">Autre</option>
 				</select>
 				<label for="localisation">Localisation :</label>
-				<input type="text" name="localisation" id="localisation" value="<?php echo $localisation; ?>" /> 
+				<input type="text" name="localisation" id="localisation" value="<?php echo $localisation; ?>"  <?php echo $disableEdit; ?>/> 
 				<label for="difficulte">Difficulté :</label>
-				<select name="difficulte" id="difficulte">
+				<select name="difficulte" id="difficulte"  <?php echo $disableEdit; ?>>
 					<option value="<?php echo $difficulte; ?>"><?php echo $difficulte; ?></option>
 					<option value="null">Difficulté</option>
 					<option value="null">Non renseigné</option>
@@ -162,7 +162,7 @@ if(isset($_POST['download'])) {
 					<option value="5">5</option>
 				</select>
 				<label for="description">Description :</label>
-				<textarea name="description" id="description" 
+				<textarea name="description" id="description"   <?php echo $disableEdit; ?>
 				<?php 
 					if($description == "Non renseigné" || $description == "") {
 						echo "placeholder=\"Description\">";
