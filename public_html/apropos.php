@@ -3,7 +3,6 @@ session_start();
 $thisPageTitle = "Randothèque - A propos"; // Titre de l'onglet
 $thisPage = "apropos"; // Pour lier à la bonne feuille CSS
 
-include 'php/deconnexion_utilisateur.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,7 +10,14 @@ include 'php/deconnexion_utilisateur.php';
 <?php
 	include 'php/balise_head.php';
 	echo "<body>";
-	include 'php/head.php';
+	if(isset($_SESSION['id_util'])) {
+		include 'php/head.php';
+	} else {
+		include 'php/index_head.php';
+		
+	}
+
+
 ?>
 
 	<div class="page">
@@ -21,7 +27,7 @@ include 'php/deconnexion_utilisateur.php';
 		<div class="texte">
 			<div class="case 1">
 				<h5>Nous</h5>
-				<p>Je ne sais pas quoi dire ici</p>
+				<p>Nous sommes 3 étudiants de l'IUT de Toulouse, nous avons réalisé cette application web dans le cadre d'un projet tutoré.</p>
 			</div>
 			<div class="case 2">
 				<h5>Le client</h5>
